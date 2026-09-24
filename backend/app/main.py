@@ -6,7 +6,10 @@ from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from pathlib import Path
+
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import func, select
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
@@ -88,7 +91,32 @@ def create_app(start_background: bool = True) -> FastAPI:
 
     app.include_router(router)
     app.include_router(admin_router)
+    mount_frontend(app, Path(settings.static_dir))
     return app
+
+
+API_PREFIXES = ("api/", "go/", "max/", "health")
+
+
+def mount_frontend(app: FastAPI, static: Path) -> None:
+    """Раздаёт собранный фронт с того же адреса, что и API: один контейнер — одно приложение."""
+    index = static / "index.html"
+    if not index.is_file():
+        log.info("фронт не найден в %s — отдаём только API", static)
+        return
+    if (static / "assets").is_dir():
+        app.mount("/assets", StaticFiles(directory=static / "assets"), name="assets")
+    root = static.resolve()
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def spa(path: str):
+        if path.startswith(API_PREFIXES):
+            return JSONResponse({"error": {"code": "not_found", "message": "not_found", "details": {}}}, 404)
+        file = (static / path).resolve()
+        if path and file.is_file() and root in file.parents:
+            return FileResponse(file)
+        # index.html не кэшируем, чтобы обновление фронта доходило сразу
+        return FileResponse(index, headers={"Cache-Control": "no-cache"})
 
 
 app = create_app()

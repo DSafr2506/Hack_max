@@ -1,11 +1,10 @@
 # Выкат на сервер (Docker)
 
-Схема: один VPS, один домен, два контейнера.
+Схема: один VPS, один домен. Приложение — один контейнер `app` (общий `Dockerfile` в корне), перед ним на сервере Caddy для HTTPS.
 
 ```
-Телефон (MAX) ──https──▶ ваш-домен ──▶ [caddy] ──┬─▶ фронт (статика внутри образа caddy)
-                                                 └─▶ /api, /go, /health, /max/webhook ──▶ [backend] ──▶ SQLite в томе app-data
-[backend] ──https──▶ platform-api2.max.ru (сообщения бота, приём событий)
+Телефон (MAX) ──https──▶ ваш-домен ──▶ [caddy] ──▶ [app: фронт + API + бот] ──▶ SQLite в томе app-data
+[app] ──https──▶ platform-api2.max.ru (сообщения бота, приём событий)
 ```
 
 Caddy сам получает и продлевает HTTPS-сертификат Let's Encrypt для домена. База лежит в Docker-томе `app-data` и переживает пересборку контейнеров. Мероприятия из `backend/data/events.yaml` загружаются сами при первом запуске.
@@ -63,7 +62,9 @@ nano .env
 Что вписать в `.env`:
 
 ```ini
+COMPOSE_PROFILES=https
 DOMAIN=app.ваш-домен.ru
+HTTP_PORT=127.0.0.1:8080
 PUBLIC_URL=https://app.ваш-домен.ru
 FRONTEND_ORIGIN=https://app.ваш-домен.ru
 ENV=prod
@@ -81,11 +82,11 @@ DEV_FAKE_AUTH=0
 
 ```bash
 docker compose up -d --build                           # первая сборка — 3–5 минут
-docker compose exec backend python -m app.maxapi me    # бот отвечает? имя бота видно?
+docker compose exec app python -m app.maxapi me    # бот отвечает? имя бота видно?
 curl -s https://app.ваш-домен.ru/health                # {"status":"ok","events":38,"bot":"t829_hakaton_max_bot"}
 ```
 
-Логи: `docker compose logs -f backend` (приложение) и `docker compose logs -f caddy` (сертификат, входящие запросы).
+Логи: `docker compose logs -f app` (приложение) и `docker compose logs -f caddy` (сертификат, входящие запросы).
 
 ## 5. Проверка в браузере
 
@@ -108,7 +109,7 @@ MAX_MODE=webhook
 MAX_WEBHOOK_SECRET=<openssl rand -hex 24>
 ```
 
-Затем `docker compose up -d`. Бэкенд сам подпишется на `https://app.ваш-домен.ru/max/webhook` и раз в 30 минут будет проверять, что подписка жива. Проверка: `docker compose exec backend python -m app.maxapi me` — в `webhooks` должен быть ваш адрес. Если организаторы против вебхуков, оставьте `polling`.
+Затем `docker compose up -d`. Бэкенд сам подпишется на `https://app.ваш-домен.ru/max/webhook` и раз в 30 минут будет проверять, что подписка жива. Проверка: `docker compose exec app python -m app.maxapi me` — в `webhooks` должен быть ваш адрес. Если организаторы против вебхуков, оставьте `polling`.
 
 ## 8. Приёмка на телефоне
 
@@ -129,9 +130,9 @@ crontab -e
 Снимки базы — в `/opt/max-app/backups`, хранятся 14 последних. Восстановление:
 
 ```bash
-docker compose stop backend
-docker compose cp backups/app-<дата>.db backend:/data/app.db
-docker compose start backend
+docker compose stop app
+docker compose cp backups/app-<дата>.db app:/data/app.db
+docker compose start app
 ```
 
 ## 10. Обновление и откат
@@ -143,7 +144,7 @@ git commit -am "…" && git tag v0.2 && git push --follow-tags
 cd /opt/max-app && ./deploy/update.sh v0.2
 ```
 
-`update.sh` делает бэкап, пересобирает контейнеры и ждёт `/health`. Если сервис не поднялся, он откатывается на прошлый коммит. Новые мероприятия: правите `backend/data/events.yaml` → коммит → `update.sh` → `docker compose exec backend python -m app.seed`.
+`update.sh` делает бэкап, пересобирает контейнеры и ждёт `/health`. Если сервис не поднялся, он откатывается на прошлый коммит. Новые мероприятия: правите `backend/data/events.yaml` → коммит → `update.sh` → `docker compose exec app python -m app.seed`.
 
 ## Чек-лист перед показом
 

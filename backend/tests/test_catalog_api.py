@@ -88,3 +88,25 @@ def test_seed_if_empty(db):
     assert n > 30
     seed_if_empty()  # повторно не грузит
     assert db.query(Event).count() == n
+
+
+def test_serves_frontend_with_spa_fallback(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app.config import settings
+    from app.main import create_app
+
+    (tmp_path / "assets").mkdir()
+    (tmp_path / "index.html").write_text("<div id=root></div>", encoding="utf-8")
+    (tmp_path / "assets" / "app.js").write_text("console.log(1)", encoding="utf-8")
+    (tmp_path / "icon.svg").write_text("<svg/>", encoding="utf-8")
+    monkeypatch.setattr(settings, "static_dir", str(tmp_path))
+    with TestClient(create_app(start_background=False)) as c:
+        assert "root" in c.get("/").text
+        assert "root" in c.get("/profile/anything").text  # SPA
+        assert c.get("/assets/app.js").text == "console.log(1)"
+        assert c.get("/icon.svg").text == "<svg/>"
+        assert c.get("/health").json()["status"] == "ok"
+        assert c.get("/api/nope").status_code == 404
+        assert c.get("/../backend/app/config.py").status_code in (200, 404)
+        assert "jwt_secret" not in c.get("/..%2F..%2Fetc%2Fpasswd").text

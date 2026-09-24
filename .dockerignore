@@ -1,6 +1,15 @@
 .git
 **/node_modules
 **/dist
-backend
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/.venv
+**/venv
+**/*.db
+**/*.db-*
 .env
 backups
+frontend/test-results
+frontend/playwright-report
+backend/tests

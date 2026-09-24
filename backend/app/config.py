@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     dev_fake_auth: bool = False
     # при старте загрузить data/events.yaml, если в базе ещё нет мероприятий (первый запуск в Docker)
     seed_if_empty: bool = True
+    # собранный фронт (в общем Docker-образе лежит здесь); если папки нет — бэкенд отдаёт только API
+    static_dir: str = "/app/static"
 
     # GigaChat (модуль H8)
     giga_auth_key: str = ""

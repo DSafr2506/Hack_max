@@ -5,8 +5,9 @@
 ```
 frontend/            мини-приложение (React + Vite) — экраны, фильтры, карточки
 backend/             API (FastAPI) + бот MAX + напоминания + каталог мероприятий
-deploy/              Caddy (HTTPS и раздача фронта), бэкап и обновление
-docker-compose.yml   всё вместе одной командой
+Dockerfile           общий образ: собирает фронт и кладёт его в бэкенд — один контейнер
+deploy/              Caddy (HTTPS на сервере), бэкап и обновление
+docker-compose.yml   запуск одной командой
 ```
 
 ## Запуск одной командой (Docker)
@@ -19,17 +20,17 @@ cp .env.example .env        # Windows: copy .env.example .env
 docker compose up -d --build
 ```
 
-Откройте http://localhost (или http://localhost:8080, если в `.env` стоит `HTTP_PORT=8080`). При первом запуске бэкенд сам создаст базу и загрузит мероприятия из `backend/data/events.yaml`.
+Откройте http://localhost:8080 (порт меняется в `.env`, `HTTP_PORT`). Всё работает в одном контейнере `app`: фронт, API, бот и напоминания. При первом запуске бэкенд сам создаст базу и загрузит мероприятия из `backend/data/events.yaml`.
 
 | Команда | Что делает |
 |---|---|
-| `docker compose logs -f backend` | логи API и бота |
-| `docker compose exec backend python -m app.maxapi me` | проверить токен бота |
-| `docker compose exec backend python -m app.seed` | перечитать `events.yaml` после правок |
+| `docker compose logs -f app` | логи API и бота |
+| `docker compose exec app python -m app.maxapi me` | проверить токен бота |
+| `docker compose exec app python -m app.seed` | перечитать `events.yaml` после правок |
 | `docker compose up -d --build` | пересобрать после изменений кода |
 | `docker compose down` | остановить (база сохраняется в томе `app-data`) |
 
-**Проверка в браузере без MAX.** Подборка и карточки открываются сразу. «Участвую», «Мои даты» и напоминания требуют входа, а он есть только внутри MAX. Для локальной проверки поставьте в `.env` `DEV_FAKE_AUTH=1`, выполните `docker compose up -d` и откройте http://localhost/?dev=me&demo=1. `demo=1` добавляет в карточку «Демо-напоминание»: через ≤30 секунд бот напишет в MAX. Перед показом верните `DEV_FAKE_AUTH=0`.
+**Проверка в браузере без MAX.** Подборка и карточки открываются сразу. «Участвую», «Мои даты» и напоминания требуют входа, а он есть только внутри MAX. Для локальной проверки поставьте в `.env` `DEV_FAKE_AUTH=1`, выполните `docker compose up -d` и откройте http://localhost:8080/?dev=me&demo=1. `demo=1` добавляет в карточку «Демо-напоминание»: через ≤30 секунд бот напишет в MAX. Перед показом верните `DEV_FAKE_AUTH=0`.
 
 **Внутри MAX** приложение открывается только по https с доменом. Выкат на сервер с доменом — [DEPLOY.md](DEPLOY.md).
 
