@@ -19,7 +19,7 @@ cp .env.example .env        # Windows: copy .env.example .env
 docker compose up -d --build
 ```
 
-Откройте http://localhost. При первом запуске бэкенд сам создаст базу и загрузит мероприятия из `backend/data/events.yaml`.
+Откройте http://localhost (или http://localhost:8080, если в `.env` стоит `HTTP_PORT=8080`). При первом запуске бэкенд сам создаст базу и загрузит мероприятия из `backend/data/events.yaml`.
 
 | Команда | Что делает |
 |---|---|
