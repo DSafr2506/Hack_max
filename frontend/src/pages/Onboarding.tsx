@@ -194,7 +194,7 @@ export function Onboarding({
                 : "Открыть возможности"
               : "Далее"}
         </Primary>
-        <small>Демонстрационный режим · 8–11 классы</small>
+        <small>Для учеников 8–11 классов</small>
       </footer>
     </main>
   );

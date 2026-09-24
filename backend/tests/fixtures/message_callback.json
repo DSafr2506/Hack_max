@@ -1,0 +1,18 @@
+{
+  "_note": "Модельный пример по документации dev.max.ru. Замените на реальный: python -m app.maxapi poll сохранит первое реальное нажатие в real_message_callback.json (без ПДн).",
+  "update_type": "message_callback",
+  "timestamp": 1790000000000,
+  "callback": {
+    "timestamp": 1790000000000,
+    "callback_id": "cb-123",
+    "payload": "fu:1:participated",
+    "user": {"user_id": 12345, "first_name": "***", "is_bot": false, "last_activity_time": 1790000000000}
+  },
+  "message": {
+    "sender": {"user_id": 999, "first_name": "***", "is_bot": true},
+    "recipient": {"chat_id": 555, "chat_type": "dialog", "user_id": 12345},
+    "timestamp": 1790000000000,
+    "body": {"mid": "mid.1", "seq": 1, "text": "Получилось поучаствовать?"}
+  },
+  "user_locale": "ru"
+}

@@ -42,6 +42,19 @@ export interface CommonEvent {
   direction: string;
   verified?: boolean;
   source?: string;
+  // поля, которые приходят с бэкенда (в демоданных их нет)
+  backendId?: number;
+  slug?: string;
+  sourceName?: string;
+  verifiedAt?: string | null;
+  freshness?: string;
+  hasRegistration?: boolean;
+  registrationChannel?: string;
+  goUrl?: string;
+  myStatus?: string | null;
+  selectionNote?: string | null;
+  benefitNote?: string;
+  hasDeadline?: boolean;
 }
 export interface OlympiadFields {
   status: string;
@@ -60,10 +73,10 @@ export interface SchoolFields {
 }
 export interface HackathonFields {
   stack: string;
-  teamSize: number;
+  teamSize?: number;
   teamSearch?: boolean;
   experience: string;
-  prizeFund: number;
+  prizeFund?: number;
   mentors?: boolean;
 }
 export interface CareerFields {
@@ -71,7 +84,7 @@ export interface CareerFields {
   company: string;
   activity: string;
   targeted?: boolean;
-  minAge: number;
+  minAge?: number;
   transfer?: boolean;
 }
 export type Opportunity = CommonEvent &

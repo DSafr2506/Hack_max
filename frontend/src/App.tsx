@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { EventType, Filters, Opportunity, Profile } from "./types";
 import {
   CITIES,
@@ -22,9 +22,23 @@ import {
 import { loadBrowserProfile, saveBrowserProfile } from "./state/profile";
 import { clock, opportunityService } from "./services/opportunities";
 import type { DemoMode } from "./services/opportunities";
-import { environment } from "./integration/max";
-export default function App() {
-  const [profile, setProfile] = useState(loadBrowserProfile);
+import type { Session } from "./services/session";
+import {
+  api,
+  goalCodesFromText,
+  hasSession,
+  profileFromBackend,
+  TYPE_TO_BACKEND,
+} from "./services/api";
+import { MyDates } from "./components/MyDates";
+function initialProfile(session: Session): Profile {
+  const local = loadBrowserProfile();
+  // Профиль на бэкенде главнее: так онбординг не повторяется на другом устройстве
+  return (session.user && profileFromBackend(session.user, local)) || local;
+}
+
+export default function App({ session }: { session: Session }) {
+  const [profile, setProfile] = useState(() => initialProfile(session));
   const [draft, setDraft] = useState(profile);
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<"feed" | "profile">("feed");
@@ -38,6 +52,8 @@ export default function App() {
   const [status, setStatus] = useState("loading");
   const [retry, setRetry] = useState(0);
   const [storageWarning, setStorageWarning] = useState(false);
+  const [syncWarning, setSyncWarning] = useState(false);
+  const pendingStart = useRef(session.startParam);
   useEffect(() => {
     const controller = new AbortController();
     opportunityService
@@ -45,12 +61,36 @@ export default function App() {
       .then((data) => {
         setEvents(data);
         setStatus("ready");
+        openFromStartParam(data);
       })
       .catch((e) => {
         if (e.name !== "AbortError") setStatus("error");
       });
     return () => controller.abort();
   }, [mode, retry]);
+  // Диплинки: e_<id> — кнопка «Открыть карточку» в напоминании бота, ev_<токен> — «Поделиться»
+  async function openFromStartParam(data: Opportunity[]) {
+    const param = pendingStart.current;
+    pendingStart.current = null;
+    if (!param) return;
+    try {
+      let id: number | null = null;
+      const m = /^e_(\d+)$/.exec(param);
+      if (m) id = Number(m[1]);
+      else if (/^(ev|col|cls)_/.test(param)) {
+        const link = await api.shareOpen(param);
+        if (link.kind === "ev") id = link.ref_id;
+      }
+      const found = data.find((e) => e.backendId === id);
+      if (found) setEvent(found);
+    } catch {
+      /* битая ссылка — остаёмся в ленте */
+    }
+  }
+  function updateEvent(e: Opportunity) {
+    setEvents((list) => list.map((x) => (x.id === e.id ? e : x)));
+    setEvent(e);
+  }
   function load(m: DemoMode) {
     setStatus("loading");
     setMode(m);
@@ -67,6 +107,18 @@ export default function App() {
     setStorageWarning(!saveBrowserProfile(p));
     setFilters(profileFilters(p));
     setEditing(false);
+    if (hasSession() && p.grade) {
+      // На бэкенд уходят класс, город, типы и коды целей; сам текст целей остаётся на устройстве
+      api
+        .onboarding({
+          grade: p.grade,
+          city: p.cityId,
+          type_codes: p.types.map((t) => TYPE_TO_BACKEND[t]),
+          goal_codes: goalCodesFromText(p.goalText),
+        })
+        .then(() => setSyncWarning(false))
+        .catch(() => setSyncWarning(true));
+    }
     setView("feed");
     window.scrollTo(0, 0);
   }
@@ -129,7 +181,15 @@ export default function App() {
         />
       </>
     );
-  if (event) return <Details event={event} onBack={() => setEvent(null)} />;
+  if (event)
+    return (
+      <Details
+        event={event}
+        demo={session.demo}
+        onChange={updateEvent}
+        onBack={() => setEvent(null)}
+      />
+    );
   return (
     <div className="app-shell">
       <header className="app-header">
@@ -143,12 +203,23 @@ export default function App() {
         >
           <span>✦</span> дерзай
         </a>
-        <span className="demo-badge">ДЕМО</span>
+        {session.demo && <span className="demo-badge">ДЕМО</span>}
       </header>
       <main className="page">
         {storageWarning && (
           <p className="notice" role="status">
             Хранилище недоступно. Профиль сохранён только на время сеанса.
+          </p>
+        )}
+        {syncWarning && (
+          <p className="notice" role="status">
+            Профиль не удалось отправить на сервер: подборка работает, но бот
+            пока не знает ваш класс и город. Попробуйте сохранить профиль ещё раз.
+          </p>
+        )}
+        {session.offline && (
+          <p className="notice" role="status">
+            Сервер недоступен. Проверьте интернет и откройте приложение заново.
           </p>
         )}
         {view === "profile" ? (
@@ -186,8 +257,19 @@ export default function App() {
                 Пройти онбординг заново
               </button>
             </section>
+            <MyDates onOpen={(id) => {
+              const e = events.find((x) => x.backendId === id);
+              if (e) setEvent(e);
+            }} />
+            {session.user && !session.user.notifications_enabled && (
+              <p className="notice">
+                Напоминания выключены. Откройте чат с ботом и нажмите «Старт».
+              </p>
+            )}
             <p className="hint">
-              {environment.name}. Данные остаются на этом устройстве.
+              {hasSession()
+                ? "Храним только ваш идентификатор в MAX, класс, город и интересы. Текст целей остаётся на устройстве."
+                : "Вход через MAX не выполнен: подборка доступна, «Участвую» и напоминания — только в MAX."}
             </p>
           </>
         ) : (
@@ -355,7 +437,11 @@ export default function App() {
               ) : status === "error" ? (
                 <div className="glass" role="alert">
                   <h3>Не получилось загрузить события</h3>
-                  <p>Это демонстрация ошибки сервиса.</p>
+                  <p>
+                    {mode === "error"
+                      ? "Это демонстрация ошибки сервиса."
+                      : "Проверьте интернет и попробуйте ещё раз."}
+                  </p>
                   <button className="primary" onClick={() => load("normal")}>
                     Повторить попытку
                   </button>
@@ -410,12 +496,13 @@ export default function App() {
                 </div>
               )}
             </section>
+            {session.demo && (
             <details className="demo-controls">
               <summary>Демонстрационный режим</summary>
               <p>
-                Все 16 мероприятий вымышлены. Дата демо:{" "}
-                {dateLabel(clock.today())}. Условия не являются реальными
-                предложениями.
+                Мероприятия — настоящие, из каталога бэкенда. Сегодня:{" "}
+                {dateLabel(clock.today())}. Здесь можно показать состояния
+                загрузки, ошибки и пустой выдачи.
               </p>
               <label>
                 Состояние сервиса
@@ -430,6 +517,7 @@ export default function App() {
                 </select>
               </label>
             </details>
+            )}
           </>
         )}
       </main>

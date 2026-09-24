@@ -1,0 +1,1023 @@
+# Каталог мероприятий. Даты — по МСК. Дата без времени: дедлайн = конец дня, начало = 10:00.
+# Каждая запись проверена по source_url в дату verified_at. Льготы НЕ указываем от себя (правило 1):
+# goal «admission» стоит только там, где об этом прямо пишет организатор или это ВсОШ.
+# Добавлять новые записи можно свободно; перед демо перепроверить даты: python -m app.seed
+
+# ───────────────────────── ОЛИМПИАДЫ ─────────────────────────
+
+- slug: vsosh-school-physics-2026
+  type: olympiad
+  title: "ВсОШ по физике: школьный этап на платформе «Сириус.Курсы»"
+  short_description: "Школьный этап Всероссийской олимпиады по физике для 7–11 классов, онлайн на платформе «Сириуса»"
+  description: |
+    Первый этап Всероссийской олимпиады школьников. По физике школьный этап проходит онлайн на платформе «Сириус.Курсы».
+    Доступ к заданиям выдаёт школа — узнайте у учителя физики. Победители и призёры проходят на муниципальный этап.
+  organizer: "Минпросвещения России, Образовательный центр «Сириус»"
+  organizer_kind: gov
+  format: online
+  is_federal: true
+  grade_min: 7
+  grade_max: 11
+  starts_at: 2026-09-29
+  ends_at: 2026-10-02
+  price_kind: free
+  entry_kind: open
+  registration_channel: school
+  level: federal
+  goals: [admission, portfolio, skills]
+  subjects: [physics]
+  attributes: {olympiad_status: vsosh, stage: school, subject: physics, has_online_qualifier: true}
+  source_url: https://olimpiada.ru/activity/43
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: vsosh-school-biology-2026
+  type: olympiad
+  title: "ВсОШ по биологии: школьный этап на платформе «Сириус.Курсы»"
+  short_description: "Школьный этап Всероссийской олимпиады по биологии, онлайн на платформе «Сириуса»"
+  description: |
+    Школьный этап ВсОШ по биологии проходит онлайн на платформе «Сириус.Курсы». Доступ выдаёт школа.
+  organizer: "Минпросвещения России, Образовательный центр «Сириус»"
+  organizer_kind: gov
+  format: online
+  is_federal: true
+  grade_min: 5
+  grade_max: 11
+  starts_at: 2026-10-06
+  ends_at: 2026-10-09
+  price_kind: free
+  entry_kind: open
+  registration_channel: school
+  level: federal
+  goals: [admission, portfolio, skills]
+  subjects: [biology]
+  attributes: {olympiad_status: vsosh, stage: school, subject: biology, has_online_qualifier: true}
+  source_url: https://olimpiada.ru/activity/43
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: vsosh-school-chemistry-2026
+  type: olympiad
+  title: "ВсОШ по химии: школьный этап на платформе «Сириус.Курсы»"
+  short_description: "Школьный этап Всероссийской олимпиады по химии для 7–11 классов, онлайн"
+  description: |
+    Школьный этап ВсОШ по химии проходит онлайн на платформе «Сириус.Курсы». Доступ выдаёт школа.
+  organizer: "Минпросвещения России, Образовательный центр «Сириус»"
+  organizer_kind: gov
+  format: online
+  is_federal: true
+  grade_min: 7
+  grade_max: 11
+  starts_at: 2026-10-12
+  ends_at: 2026-10-16
+  price_kind: free
+  entry_kind: open
+  registration_channel: school
+  level: federal
+  goals: [admission, portfolio, skills]
+  subjects: [chemistry]
+  attributes: {olympiad_status: vsosh, stage: school, subject: chemistry, has_online_qualifier: true}
+  source_url: https://olimpiada.ru/activity/43
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: vsosh-school-math-2026
+  type: olympiad
+  title: "ВсОШ по математике: школьный этап на платформе «Сириус.Курсы»"
+  short_description: "Школьный этап Всероссийской олимпиады по математике, онлайн на платформе «Сириуса»"
+  description: |
+    Школьный этап ВсОШ по математике проходит онлайн на платформе «Сириус.Курсы». Доступ выдаёт школа.
+  organizer: "Минпросвещения России, Образовательный центр «Сириус»"
+  organizer_kind: gov
+  format: online
+  is_federal: true
+  grade_min: 4
+  grade_max: 11
+  starts_at: 2026-10-13
+  ends_at: 2026-10-16
+  price_kind: free
+  entry_kind: open
+  registration_channel: school
+  level: federal
+  goals: [admission, portfolio, skills]
+  subjects: [math]
+  attributes: {olympiad_status: vsosh, stage: school, subject: math, has_online_qualifier: true}
+  source_url: https://olimpiada.ru/activity/43
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: vsosh-school-informatics-2026
+  type: olympiad
+  title: "ВсОШ по информатике: школьный этап на платформе «Сириус.Курсы»"
+  short_description: "Школьный этап Всероссийской олимпиады по информатике, онлайн на платформе «Сириуса»"
+  description: |
+    Школьный этап ВсОШ по информатике проходит онлайн на платформе «Сириус.Курсы». Доступ выдаёт школа.
+  organizer: "Минпросвещения России, Образовательный центр «Сириус»"
+  organizer_kind: gov
+  format: online
+  is_federal: true
+  grade_min: 5
+  grade_max: 11
+  starts_at: 2026-10-19
+  ends_at: 2026-10-23
+  price_kind: free
+  entry_kind: open
+  registration_channel: school
+  level: federal
+  goals: [admission, portfolio, skills]
+  subjects: [informatics]
+  attributes: {olympiad_status: vsosh, stage: school, subject: informatics, has_online_qualifier: true}
+  source_url: https://olimpiada.ru/activity/73
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: vsosh-school-law-2026
+  type: olympiad
+  title: "ВсОШ по праву: школьный этап"
+  short_description: "Школьный этап Всероссийской олимпиады по праву — проходит в школах до 1 ноября"
+  description: |
+    Школьный этап ВсОШ по праву проводится в школах по графику региона, завершить его нужно до 1 ноября.
+    Дату в вашей школе уточните у учителя обществознания.
+  organizer: "Минпросвещения России"
+  organizer_kind: gov
+  format: offline
+  is_federal: true
+  grade_min: 5
+  grade_max: 11
+  starts_at: 2026-09-11
+  ends_at: 2026-11-01
+  price_kind: free
+  entry_kind: open
+  registration_channel: school
+  level: federal
+  goals: [admission, portfolio]
+  subjects: [law, social]
+  attributes: {olympiad_status: vsosh, stage: school, subject: law}
+  source_url: https://olimpiada.ru/activity/87
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: nto-2026
+  type: olympiad
+  title: "Национальная технологическая олимпиада (НТО)"
+  short_description: "Командная инженерная олимпиада для 8–11 классов: онлайн-отбор, финал на реальном оборудовании"
+  description: |
+    Командные инженерные соревнования по профилям: от робототехники до биотехнологий.
+    Первый отборочный этап — дистанционно, второй — с 5 ноября по 11 декабря, затем командная работа
+    и финал, где участники «работают с реальным инженерным оборудованием».
+  organizer: "Кружковое движение НТИ"
+  organizer_kind: ngo
+  format: hybrid
+  is_federal: true
+  grade_min: 8
+  grade_max: 11
+  participation: team
+  registration_deadline: 2026-10-22
+  starts_at: 2026-11-05
+  ends_at: 2026-12-11
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://ntcontest.ru/
+  level: federal
+  goals: [portfolio, skills, team]
+  subjects: [engineering, robotics, informatics, physics]
+  attributes: {olympiad_status: other, stage: "отборочный", has_online_qualifier: true}
+  source_url: https://olimpiada.ru/activity/5369
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: ai-olympiad-2026
+  type: olympiad
+  title: "Всероссийская олимпиада по искусственному интеллекту"
+  short_description: "Задачи по ИИ, анализу данных и алгоритмам для 8–11 классов: онлайн-отбор и очный финал"
+  description: |
+    Для тех, кто владеет основами программирования. Регистрация и отборочный этап — до 6 октября,
+    основной этап — 15–21 октября, заключительный — 16–20 ноября.
+  organizer: "Минпросвещения России"
+  organizer_kind: gov
+  format: hybrid
+  is_federal: true
+  grade_min: 8
+  grade_max: 11
+  registration_deadline: 2026-10-06
+  starts_at: 2026-10-15
+  ends_at: 2026-11-20
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/5825
+  level: federal
+  goals: [portfolio, skills]
+  subjects: [ai, informatics, math]
+  attributes: {olympiad_status: other, has_online_qualifier: true, subject: informatics}
+  source_url: https://olimpiada.ru/activity/5825
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: phystech-math-2026
+  type: olympiad
+  title: "Олимпиада «Физтех» по математике: I тур"
+  short_description: "Олимпиада МФТИ для 9–11 классов. Регистрация на первый тур — до 10 октября"
+  description: |
+    Отборочный этап проходит заочно в несколько туров: I тур — 11 октября, II тур — 1 ноября,
+    III тур для 11 классов — 7 ноября. Победители и призёры отбора приглашаются в финал.
+  organizer: "МФТИ"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 9
+  grade_max: 11
+  registration_deadline: 2026-10-10
+  starts_at: 2026-10-11
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olymp-online.mipt.ru/
+  level: federal
+  goals: [portfolio, skills]
+  subjects: [math]
+  attributes: {olympiad_status: other, stage: "I тур отбора", has_online_qualifier: true, subject: math}
+  source_url: https://olimpiada.ru/activity/395
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: turgor-autumn-2026
+  type: olympiad
+  title: "Турнир городов: осенний тур"
+  short_description: "Международная математическая олимпиада для 8–11 классов: базовый вариант 4 октября, сложный — 18 октября"
+  description: |
+    Пять часов на шесть-семь задач. Два варианта сложности: базовый и сложный,
+    задачи сложного сравнимы с уровнем всероссийской и международной олимпиад. Проводится очно на местных площадках.
+  organizer: "Оргкомитет Турнира городов (МЦНМО)"
+  organizer_kind: ngo
+  format: offline
+  is_federal: true
+  grade_min: 8
+  grade_max: 11
+  starts_at: 2026-10-04
+  ends_at: 2026-10-18
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://www.turgor.ru/
+  level: international
+  goals: [portfolio, skills]
+  subjects: [math]
+  attributes: {olympiad_status: other, subject: math}
+  source_url: https://olimpiada.ru/activity/5
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: innopolis-open-math-2026
+  type: olympiad
+  title: "Innopolis Open по математике: первый отборочный тур"
+  short_description: "Олимпиада Университета Иннополис для 7–11 классов: онлайн-отбор, финал в Иннополисе"
+  description: |
+    Отборочный этап дистанционный, из двух независимых туров. Первый тур — 24–25 октября. Очный этап — в Иннополисе.
+  organizer: "Университет Иннополис"
+  organizer_kind: university
+  format: hybrid
+  is_federal: true
+  grade_min: 7
+  grade_max: 11
+  starts_at: 2026-10-24
+  ends_at: 2026-10-25
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/5367
+  level: international
+  goals: [portfolio, skills]
+  subjects: [math]
+  attributes: {olympiad_status: other, stage: "I тур отбора", has_online_qualifier: true, subject: math}
+  source_url: https://olimpiada.ru/activity/5367
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: itmo-internet-informatics-2026
+  type: olympiad
+  title: "Интернет-олимпиады ИТМО по информатике: первая командная"
+  short_description: "Онлайн-олимпиады по программированию для 7–11 классов. Первая командная — 10 октября"
+  description: |
+    Серия интернет-олимпиад Университета ИТМО по информатике: личные и командные туры в течение учебного года.
+  organizer: "Университет ИТМО"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 7
+  grade_max: 11
+  participation: both
+  starts_at: 2026-10-10
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/52
+  level: federal
+  goals: [skills, team, portfolio]
+  subjects: [informatics]
+  attributes: {olympiad_status: other, subject: informatics}
+  source_url: https://olimpiada.ru/activity/52
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: itmo-internet-physics-2026
+  type: olympiad
+  title: "Интернет-олимпиада школьников по физике: первый тур"
+  short_description: "Дистанционная олимпиада по физике для 7–11 классов, первый тур 22–28 ноября"
+  description: "Первый дистанционный тур проходит с 22 по 28 ноября."
+  organizer: "Университет ИТМО"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 7
+  grade_max: 11
+  starts_at: 2026-11-22
+  ends_at: 2026-11-28
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/57
+  level: federal
+  goals: [portfolio, skills]
+  subjects: [physics]
+  attributes: {olympiad_status: other, has_online_qualifier: true, subject: physics}
+  source_url: https://olimpiada.ru/activity/57
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: ranepa-social-2026
+  type: olympiad
+  title: "Олимпиада РАНХиГС по обществознанию: отборочный этап"
+  short_description: "Для 8–11 классов. Отборочный этап — с 20 октября по 18 ноября"
+  description: "Отборочный этап проходит с 20 октября по 18 ноября, затем — заключительный этап."
+  organizer: "РАНХиГС"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 8
+  grade_max: 11
+  starts_at: 2026-10-20
+  ends_at: 2026-11-18
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/5009
+  level: federal
+  goals: [portfolio, skills]
+  subjects: [social]
+  attributes: {olympiad_status: other, has_online_qualifier: true, subject: social}
+  source_url: https://olimpiada.ru/activity/5009
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: ranepa-languages-2026
+  type: olympiad
+  title: "Олимпиада РАНХиГС по иностранному языку: отборочный этап"
+  short_description: "Для 8–11 классов. Отборочный этап — с 20 октября по 18 ноября"
+  description: "Отборочный этап проходит с 20 октября по 18 ноября."
+  organizer: "РАНХиГС"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 8
+  grade_max: 11
+  starts_at: 2026-10-20
+  ends_at: 2026-11-18
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/5008
+  level: federal
+  goals: [portfolio, skills]
+  subjects: [english]
+  attributes: {olympiad_status: other, has_online_qualifier: true, subject: english}
+  source_url: https://olimpiada.ru/activity/5008
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: belchonok-informatics-2026
+  type: olympiad
+  title: "Университетская олимпиада «Бельчонок» по информатике"
+  short_description: "Отборочный этап — с 1 октября по 12 января, для 2–11 классов"
+  description: "Длинный отборочный этап: можно участвовать с 1 октября до 12 января."
+  organizer: "Уральский федеральный университет"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 2
+  grade_max: 11
+  starts_at: 2026-10-01
+  ends_at: 2027-01-12
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/398
+  level: federal
+  goals: [portfolio, skills]
+  subjects: [informatics]
+  attributes: {olympiad_status: other, has_online_qualifier: true, subject: informatics}
+  source_url: https://olimpiada.ru/activity/398
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: step-engineering-2026
+  type: olympiad
+  title: "Олимпиада «Шаг в будущее» по инженерному делу: I волна"
+  short_description: "Инженерная олимпиада МГТУ им. Баумана для 8–11 классов, первая волна 23–25 октября"
+  description: "Первая волна отборочного этапа проходит 23–25 октября."
+  organizer: "МГТУ им. Н. Э. Баумана"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 8
+  grade_max: 11
+  starts_at: 2026-10-23
+  ends_at: 2026-10-25
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/170
+  level: federal
+  goals: [portfolio, skills, career]
+  subjects: [engineering, physics, math]
+  attributes: {olympiad_status: other, subject: engineering}
+  source_url: https://olimpiada.ru/activity/170
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: formula-edinstva-2026
+  type: olympiad
+  title: "Олимпиада «Формула Единства» / «Третье тысячелетие»"
+  short_description: "Международная олимпиада по математике и физике для 5–11 классов, отбор 15 октября — 5 ноября"
+  description: "Отборочный этап проходит с 15 октября по 5 ноября."
+  organizer: "Оргкомитет олимпиады «Формула Единства» / «Третье тысячелетие»"
+  organizer_kind: ngo
+  format: online
+  is_federal: true
+  grade_min: 5
+  grade_max: 11
+  starts_at: 2026-10-15
+  ends_at: 2026-11-05
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/223
+  level: international
+  goals: [portfolio, skills]
+  subjects: [math, physics]
+  attributes: {olympiad_status: other, has_online_qualifier: true, subject: math}
+  source_url: https://olimpiada.ru/activity/223
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: kvantik-contest-2026
+  type: olympiad
+  title: "Задачный конкурс журнала «Квантик»: I тур"
+  short_description: "Заочный математический конкурс для 5–8 классов. Решения I тура — до 5 октября"
+  description: "Решения задач I тура принимаются до 5 октября."
+  organizer: "Журнал «Квантик»"
+  organizer_kind: ngo
+  format: online
+  is_federal: true
+  grade_min: 5
+  grade_max: 8
+  registration_deadline: 2026-10-05
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/5056
+  level: federal
+  goals: [skills]
+  subjects: [math]
+  attributes: {olympiad_status: other, subject: math}
+  source_url: https://olimpiada.ru/activity/5056
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: orio-2026
+  type: olympiad
+  title: "Открытая российская интернет-олимпиада по математике"
+  short_description: "Онлайн-олимпиада для 1–9 классов, 22–30 октября"
+  description: "Проходит онлайн с 22 по 30 октября."
+  organizer: "Оргкомитет ОРИО"
+  organizer_kind: ngo
+  format: online
+  is_federal: true
+  grade_min: 1
+  grade_max: 9
+  starts_at: 2026-10-22
+  ends_at: 2026-10-30
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olimpiada.ru/activity/5520
+  level: federal
+  goals: [skills]
+  subjects: [math]
+  attributes: {olympiad_status: other, subject: math}
+  source_url: https://olimpiada.ru/activity/5520
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+- slug: innagrika-2026
+  type: olympiad
+  title: "Олимпиада по агрогенетике «Иннагрика»"
+  short_description: "Для 9–11 классов и студентов колледжей: агрогенетика, агрохимия, АгроТех. Регистрация до 15 октября"
+  description: |
+    Три профиля: «Агрогенетика» (биология), «Агрохимия» (химия), «АгроТех» (цифровые технологии).
+    Отборочный этап заочный (1–31 октября), полуфинал и финал — очные, с практическими кейсами.
+    Проживание и питание на очных этапах обеспечивают организаторы.
+  organizer: "Фонд «Национальное интеллектуальное развитие», РГАУ-МСХА им. Тимирязева, НИЦ «Курчатовский институт»"
+  organizer_kind: ngo
+  format: hybrid
+  is_federal: true
+  grade_min: 9
+  grade_max: 11
+  registration_deadline: 2026-10-15
+  starts_at: 2026-10-01
+  ends_at: 2027-02-28
+  price_kind: free
+  accommodation_covered: yes
+  entry_kind: open
+  registration_url: https://innagrika.ru
+  level: federal
+  goals: [admission, portfolio, skills]
+  subjects: [biology, chemistry, ecology]
+  attributes:
+    olympiad_status: other
+    benefit_note: "По словам организаторов, победители, призёры, финалисты и полуфиналисты могут получить преференции при поступлении в вузы-партнёры. Условия уточняйте в правилах приёма конкретного вуза."
+  source_url: https://vsekonkursy.ru/olimpiada-po-agrogenetike-innagrika.html
+  source_name: vsekonkursy.ru
+  verified_at: 2026-09-24
+
+- slug: klyuch-case-2026
+  type: olympiad
+  title: "Всероссийский кейс-чемпионат «Ключ»"
+  short_description: "Командный чемпионат по экономике и предпринимательству для 9–11 классов. Регистрация до 25 сентября"
+  description: |
+    Команды по 2–4 человека решают бизнес-кейс или разрабатывают бизнес-проект.
+    Квалификационное тестирование — до 25 сентября, региональный этап — 5–8 ноября, финал в Москве — 4–7 декабря.
+  organizer: "Минэкономразвития России, НИУ ВШЭ"
+  organizer_kind: university
+  format: hybrid
+  is_federal: true
+  grade_min: 9
+  grade_max: 11
+  participation: team
+  registration_deadline: 2026-09-25
+  starts_at: 2026-11-05
+  ends_at: 2026-12-07
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://olymp.hse.ru/championship
+  level: federal
+  goals: [team, skills, portfolio]
+  subjects: [economics, business]
+  attributes: {olympiad_status: other, subject: economics}
+  source_url: https://olimpiada.ru/activity/5787
+  source_name: olimpiada.ru
+  verified_at: 2026-09-24
+
+# ───────────────────────── ОБРАЗОВАТЕЛЬНЫЕ СМЕНЫ ─────────────────────────
+
+- slug: sirius-math-january-2027
+  type: camp
+  title: "«Сириус»: январская математическая программа"
+  short_description: "24 дня в Сочи для 7–9 классов. Бесплатно, проезд оплачивает фонд. Заявки до 27 сентября"
+  description: |
+    Смена 5–26 января 2027 в Образовательном центре «Сириус». Отбор: дистанционный учебно-отборочный курс
+    с тестированием и очный отборочный тур 31 октября. Оплата проезда по России, питания и пребывания —
+    за счёт Образовательного фонда «Талант и успех».
+  organizer: "Образовательный центр «Сириус»"
+  organizer_kind: gov
+  format: offline
+  is_federal: true
+  venue_city: "Сочи"
+  grade_min: 7
+  grade_max: 9
+  registration_deadline: 2026-09-27
+  starts_at: 2027-01-05
+  ends_at: 2027-01-26
+  price_kind: free
+  travel_covered: yes
+  accommodation_covered: yes
+  entry_kind: selection
+  selection_note: "Дистанционный курс и тестирование, затем очный отборочный тур 31 октября"
+  registration_url: https://sochisirius.ru/obuchenie/nauka/smena2498
+  level: federal
+  goals: [free_trip, skills, team]
+  subjects: [math]
+  attributes: {direction: "Математика", selection_method: "курс + тест + очный тур", season: "зима"}
+  source_url: https://sochisirius.ru/obuchenie/nauka/smena2498
+  source_name: "sochisirius.ru"
+  verified_at: 2026-09-24
+
+- slug: sirius-chemistry-january-2027
+  type: camp
+  title: "«Сириус»: программа по практической химии"
+  short_description: "Январская смена для 9–11 классов, до 30 участников. Заявки до 18 октября"
+  description: |
+    Смена 5–26 января 2027. Отбор в два этапа: дистанционное тестирование 24 октября,
+    затем собеседование и мотивационное письмо. Список приглашённых — не позднее 18 ноября.
+  organizer: "Образовательный центр «Сириус»"
+  organizer_kind: gov
+  format: offline
+  is_federal: true
+  venue_city: "Сочи"
+  grade_min: 9
+  grade_max: 11
+  registration_deadline: 2026-10-18
+  starts_at: 2027-01-05
+  ends_at: 2027-01-26
+  price_kind: free
+  travel_covered: yes
+  accommodation_covered: yes
+  entry_kind: selection
+  selection_note: "Тестирование 24 октября, собеседование, мотивационное письмо"
+  registration_url: https://sochisirius.ru/obuchenie/nauka/smena2490
+  level: federal
+  goals: [free_trip, skills]
+  subjects: [chemistry]
+  attributes: {direction: "Химия", selection_method: "тест + собеседование + письмо", season: "зима"}
+  source_url: https://sochisirius.ru/obuchenie/nauka/smena2490
+  source_name: "sochisirius.ru"
+  verified_at: 2026-09-24
+
+- slug: orlyonok-misis-engineering-2026
+  type: camp
+  title: "«Школа инженерных решений» в ВДЦ «Орлёнок» с НИТУ МИСИС"
+  short_description: "Инженерная смена для 14–16 лет, 7–27 ноября. Путёвка бесплатная, проезд оплачивают родители"
+  description: |
+    Тематическая смена Университета МИСИС в «Орлёнке». Путёвка предоставляется бесплатно,
+    проезд и питание в пути оплачивают родители. Заявка — через АИС «Орлёнок».
+  organizer: "НИТУ МИСИС, ВДЦ «Орлёнок»"
+  organizer_kind: university
+  format: offline
+  is_federal: true
+  venue_city: "Туапсинский район"
+  grade_min: 8
+  grade_max: 10
+  starts_at: 2026-11-07
+  ends_at: 2026-11-27
+  price_kind: free
+  travel_covered: no
+  accommodation_covered: yes
+  entry_kind: selection
+  registration_url: https://admin-orlyonok.ru/Account/Register
+  level: federal
+  goals: [skills, team, career]
+  subjects: [engineering]
+  attributes: {direction: "Инженерия", season: "осень"}
+  source_url: https://misis.ru/applicants/school-leavers/partners/orlenok/tematicheskayasmena/
+  source_name: "misis.ru"
+  verified_at: 2026-09-24
+
+- slug: mosgortur-smena-nov-2026
+  type: camp
+  title: "Бесплатная путёвка в ВДЦ «Смена» для московских школьников"
+  short_description: "Смены «АРТ-лаборатория», «Медиафорум», «Орбита возможностей» 21 ноября — 4 декабря. Заявки до 12 октября"
+  description: |
+    Конкурсный отбор «Мосгортура» для учеников московских школ 11–17 лет. Нужно не менее пяти подтверждённых достижений.
+  organizer: "Мосгортур"
+  organizer_kind: gov
+  format: offline
+  region_codes: ["77"]
+  venue_city: "Анапа"
+  grade_min: 5
+  grade_max: 11
+  registration_deadline: 2026-10-12
+  starts_at: 2026-11-21
+  ends_at: 2026-12-04
+  price_kind: free
+  entry_kind: selection
+  selection_note: "Не менее 5 подтверждённых достижений"
+  registration_url: https://mosgortur.ru/konkurs-v-lager
+  level: regional
+  goals: [free_trip, team]
+  subjects: [art, media]
+  attributes: {selection_method: "конкурс достижений", has_region_quota: true, season: "осень"}
+  source_url: https://mosgortur.ru/konkurs-v-lager
+  source_name: "mosgortur.ru"
+  verified_at: 2026-09-24
+
+- slug: mosgortur-orlyonok-dec-2026
+  type: camp
+  title: "Бесплатная путёвка в ВДЦ «Орлёнок» для московских школьников"
+  short_description: "Смена «Творческий прорыв стремительных идей» 2–22 декабря. Заявки до 2 октября"
+  description: "Конкурсный отбор «Мосгортура» для учеников московских школ 11–17 лет с подтверждёнными достижениями."
+  organizer: "Мосгортур"
+  organizer_kind: gov
+  format: offline
+  region_codes: ["77"]
+  grade_min: 5
+  grade_max: 11
+  registration_deadline: 2026-10-02
+  starts_at: 2026-12-02
+  ends_at: 2026-12-22
+  price_kind: free
+  entry_kind: selection
+  selection_note: "Не менее 5 подтверждённых достижений"
+  registration_url: https://mosgortur.ru/konkurs-v-lager
+  level: regional
+  goals: [free_trip, team]
+  subjects: [art]
+  attributes: {selection_method: "конкурс достижений", has_region_quota: true, season: "зима"}
+  source_url: https://mosgortur.ru/konkurs-v-lager
+  source_name: "mosgortur.ru"
+  verified_at: 2026-09-24
+
+- slug: mosgortur-okean-nov-2026
+  type: camp
+  title: "Бесплатная путёвка в ВДЦ «Океан» для московских школьников"
+  short_description: "Смены «Проектория здоровья» и «Триатлон» 15 ноября — 5 декабря. Заявки до 1 октября"
+  description: "Конкурсный отбор «Мосгортура» для учеников московских школ 11–17 лет с подтверждёнными достижениями."
+  organizer: "Мосгортур"
+  organizer_kind: gov
+  format: offline
+  region_codes: ["77"]
+  venue_city: "Владивосток"
+  grade_min: 5
+  grade_max: 11
+  registration_deadline: 2026-10-01
+  starts_at: 2026-11-15
+  ends_at: 2026-12-05
+  price_kind: free
+  entry_kind: selection
+  selection_note: "Не менее 5 подтверждённых достижений"
+  registration_url: https://mosgortur.ru/konkurs-v-lager
+  level: regional
+  goals: [free_trip, team]
+  subjects: [sport, medicine]
+  attributes: {selection_method: "конкурс достижений", has_region_quota: true, season: "осень"}
+  source_url: https://mosgortur.ru/konkurs-v-lager
+  source_name: "mosgortur.ru"
+  verified_at: 2026-09-24
+
+# ───────────────────────── ХАКАТОНЫ ─────────────────────────
+
+- slug: dano-hackathon-maykop-2026
+  type: hackathon
+  title: "Хакатон DANO в Майкопе"
+  short_description: "Два дня командного анализа данных с экспертами ВШЭ и Т-Банка, 26–27 сентября, АГУ"
+  description: |
+    Больше 100 школьников, команды по 5–6 человек, два дня очной работы с данными. Питание бесплатное.
+    Победители получают дипломы и проходят сразу во второй отборочный тур олимпиады DANO (если зарегистрированы в ней).
+  organizer: "НИУ ВШЭ, Т-Банк"
+  organizer_kind: university
+  format: offline
+  region_codes: ["01"]
+  venue_city: "Майкоп"
+  grade_min: 9
+  grade_max: 11
+  participation: team
+  starts_at: 2026-09-26
+  ends_at: 2026-09-27
+  price_kind: free
+  entry_kind: open
+  registration_url: https://dano.hse.ru/hackathon
+  level: regional
+  goals: [team, skills, portfolio]
+  subjects: [ai, math]
+  attributes: {tracks: ["анализ данных"], team_size_min: 5, team_size_max: 6, has_mentors: true, partner: "Т-Банк"}
+  source_url: https://dano.hse.ru/hackathon
+  source_name: "dano.hse.ru"
+  verified_at: 2026-09-24
+
+- slug: prod-hackathon-spb-2026
+  type: hackathon
+  title: "Хакатон PROD в Санкт-Петербурге"
+  short_description: "Трёхдневный хакатон для 8–10 классов: backend, frontend, mobile. 16–18 октября, бесплатно"
+  description: |
+    Команды по 3–5 человек, мастер-классы и менторы. Участие бесплатное, проезд и проживание — за свой счёт.
+    Победители получают мерч, дипломы и проходят во второй этап олимпиады PROD. С собой — ноутбук и паспорт.
+  organizer: "Олимпиада PROD"
+  organizer_kind: other
+  format: offline
+  region_codes: ["78"]
+  venue_city: "Санкт-Петербург"
+  grade_min: 8
+  grade_max: 10
+  participation: team
+  starts_at: 2026-10-16
+  ends_at: 2026-10-18
+  price_kind: free
+  travel_covered: no
+  entry_kind: open
+  registration_url: http://prodcontest.com/hackathon
+  level: regional
+  goals: [team, skills, portfolio]
+  subjects: [informatics]
+  attributes: {tracks: ["backend", "frontend", "mobile"], team_size_min: 3, team_size_max: 5, has_mentors: true}
+  source_url: http://prodcontest.com/hackathon
+  source_name: "prodcontest.com"
+  verified_at: 2026-09-24
+
+- slug: prod-hackathon-murmansk-2026
+  type: hackathon
+  title: "Хакатон PROD в Мурманске"
+  short_description: "Трёхдневный хакатон для 8–10 классов, 30 октября — 1 ноября, бесплатно"
+  description: "Команды по 3–5 человек, менторы и мастер-классы. Победители проходят во второй этап олимпиады PROD."
+  organizer: "Олимпиада PROD"
+  organizer_kind: other
+  format: offline
+  region_codes: ["51"]
+  venue_city: "Мурманск"
+  grade_min: 8
+  grade_max: 10
+  participation: team
+  starts_at: 2026-10-30
+  ends_at: 2026-11-01
+  price_kind: free
+  travel_covered: no
+  entry_kind: open
+  registration_url: http://prodcontest.com/hackathon
+  level: regional
+  goals: [team, skills, portfolio]
+  subjects: [informatics]
+  attributes: {tracks: ["backend", "frontend", "mobile"], team_size_min: 3, team_size_max: 5, has_mentors: true}
+  source_url: http://prodcontest.com/hackathon
+  source_name: "prodcontest.com"
+  verified_at: 2026-09-24
+
+- slug: prod-hackathon-kazan-2026
+  type: hackathon
+  title: "Хакатон PROD в Казани"
+  short_description: "Трёхдневный хакатон для 8–10 классов, 6–8 ноября, бесплатно"
+  description: "Команды по 3–5 человек, менторы и мастер-классы. Победители проходят во второй этап олимпиады PROD."
+  organizer: "Олимпиада PROD"
+  organizer_kind: other
+  format: offline
+  region_codes: ["16"]
+  venue_city: "Казань"
+  grade_min: 8
+  grade_max: 10
+  participation: team
+  starts_at: 2026-11-06
+  ends_at: 2026-11-08
+  price_kind: free
+  travel_covered: no
+  entry_kind: open
+  registration_url: http://prodcontest.com/hackathon
+  level: regional
+  goals: [team, skills, portfolio]
+  subjects: [informatics]
+  attributes: {tracks: ["backend", "frontend", "mobile"], team_size_min: 3, team_size_max: 5, has_mentors: true}
+  source_url: http://prodcontest.com/hackathon
+  source_name: "prodcontest.com"
+  verified_at: 2026-09-24
+
+- slug: prod-hackathon-novosibirsk-2026
+  type: hackathon
+  title: "Хакатон PROD в Новосибирске"
+  short_description: "Трёхдневный хакатон для 8–10 классов, 20–22 ноября, бесплатно"
+  description: "Команды по 3–5 человек, менторы и мастер-классы. Победители проходят во второй этап олимпиады PROD."
+  organizer: "Олимпиада PROD"
+  organizer_kind: other
+  format: offline
+  region_codes: ["54"]
+  venue_city: "Новосибирск"
+  grade_min: 8
+  grade_max: 10
+  participation: team
+  starts_at: 2026-11-20
+  ends_at: 2026-11-22
+  price_kind: free
+  travel_covered: no
+  entry_kind: open
+  registration_url: http://prodcontest.com/hackathon
+  level: regional
+  goals: [team, skills, portfolio]
+  subjects: [informatics]
+  attributes: {tracks: ["backend", "frontend", "mobile"], team_size_min: 3, team_size_max: 5, has_mentors: true}
+  source_url: http://prodcontest.com/hackathon
+  source_name: "prodcontest.com"
+  verified_at: 2026-09-24
+
+- slug: innoctf-junior-2026
+  type: hackathon
+  title: "InnoCTF Junior — турнир по кибербезопасности"
+  short_description: "CTF для 9–11 классов: онлайн-отбор 25 октября, финал в Иннополисе. Регистрация до 20 октября"
+  description: |
+    Отборочный тур 25 октября (8:00–16:00 МСК) — задачи из разных категорий информационной безопасности.
+    Финал — очно в Университете Иннополис 20–22 ноября.
+  organizer: "Университет Иннополис"
+  organizer_kind: university
+  format: hybrid
+  is_federal: true
+  venue_city: "Иннополис"
+  grade_min: 9
+  grade_max: 11
+  participation: team
+  registration_deadline: 2026-10-20
+  starts_at: 2026-10-25
+  ends_at: 2026-11-22
+  price_kind: unknown
+  entry_kind: open
+  registration_url: https://dovuz.innopolis.university/innoctfjunior
+  level: federal
+  goals: [team, skills, portfolio]
+  subjects: [security, informatics]
+  attributes: {tracks: ["CTF"], difficulty: "средняя"}
+  source_url: https://dovuz.innopolis.university/innoctfjunior
+  source_name: "innopolis.university"
+  verified_at: 2026-09-24
+
+- slug: ctf-cup-russia-2026
+  type: hackathon
+  title: "Кубок CTF России"
+  short_description: "Всероссийский кибертурнир для школьников и студентов, призовой фонд 1 млн ₽. Регистрация до 29 октября"
+  description: |
+    Команды решают задачи по информационной безопасности, ищут уязвимости и атакуют инфраструктуру соперника.
+    Онлайн-отбор — 31 октября — 1 ноября, финал — 4–6 декабря в Москве. Есть программа для новичков. Участие бесплатное.
+  organizer: "Ассоциация руководителей служб информационной безопасности (АРСИБ)"
+  organizer_kind: ngo
+  format: hybrid
+  is_federal: true
+  venue_city: "Москва"
+  grade_min: 8
+  grade_max: 11
+  participation: team
+  registration_deadline: 2026-10-29
+  starts_at: 2026-10-31
+  ends_at: 2026-12-06
+  price_kind: free
+  entry_kind: open
+  registration_url: https://aciso.timepad.ru/event/1431553/
+  level: federal
+  goals: [money, team, skills]
+  subjects: [security, informatics]
+  attributes: {tracks: ["CTF"], prize_fund: "1 000 000 ₽"}
+  source_url: https://lenta.ru/news/2026/09/23/rossiyskim-shkolnikam-i-studentam-predlozhili-poprobovat-sebya-v-roli-hakerov/
+  source_name: "lenta.ru"
+  verified_at: 2026-09-24
+
+# ───────────────────────── ПРОФОРИЕНТАЦИЯ ─────────────────────────
+
+- slug: urok-tsifry-ai-3d-2026
+  type: career
+  title: "«Урок цифры»: искусственный интеллект и 3D-технологии"
+  short_description: "Онлайн-тренажёр от Сбера и Sber AI для 1–11 классов, 28 сентября — 25 октября"
+  description: |
+    Всероссийский профориентационный проект в сфере цифровой экономики. Игровой тренажёр на сайте проекта,
+    три уровня сложности (1–4, 5–9, 10–11 классы).
+  organizer: "Фонд «Вклад в будущее», Сбер"
+  organizer_kind: company
+  format: online
+  is_federal: true
+  grade_min: 1
+  grade_max: 11
+  starts_at: 2026-09-28
+  ends_at: 2026-10-25
+  price_kind: free
+  entry_kind: open
+  registration_url: https://xn--h1adlhdnlo2c.xn--p1ai/
+  level: federal
+  goals: [career, skills]
+  subjects: [ai, informatics]
+  attributes: {industry: "IT", company: "Сбер", program_kind: excursion}
+  source_url: https://kuzbass.media/2026/09/22/162199.html
+  source_name: "РИА «Кузбасс»"
+  verified_at: 2026-09-24
+
+# ───────────────────────── КОНКУРСЫ ПРОЕКТОВ ─────────────────────────
+
+- slug: mendeleev-contest-2026
+  type: grant
+  title: "Менделеевский международный конкурс исследовательских работ"
+  short_description: "Исследовательские проекты по 10 направлениям для 5–11 классов. Приём работ до 1 октября, бесплатно"
+  description: |
+    Первый тур — заочная экспертиза работ (приём до 1 октября), второй тур — конференция финалистов 12–18 декабря,
+    очно или дистанционно.
+  organizer: "РАН, Российское химическое общество им. Д. И. Менделеева, ИФХЭ РАН"
+  organizer_kind: gov
+  format: hybrid
+  is_federal: true
+  grade_min: 5
+  grade_max: 11
+  registration_deadline: 2026-10-01
+  starts_at: 2026-12-12
+  ends_at: 2026-12-18
+  price_kind: free
+  entry_kind: selection
+  registration_url: https://mendeleevsociety.ru/membership/konkurs-mk/
+  level: international
+  goals: [portfolio, skills]
+  subjects: [chemistry, physics, math, biology]
+  attributes: {applicant_kind: "школьник", project_stage: "исследование", requires_supervisor: false}
+  source_url: https://vsekonkursy.ru/mendeleevskij-mezhdunarodnyj-konkurs-dlya-shkolnikov-2.html
+  source_name: vsekonkursy.ru
+  verified_at: 2026-09-24
+
+# ───────────────────────── ТВОРЧЕСТВО ─────────────────────────
+
+- slug: journalism-cheloveku-nuzhen-chelovek-2026
+  type: creative
+  title: "Журналистский конкурс «Человеку нужен человек»"
+  short_description: "Тексты, радио, видео и фото о дружбе народов для 9–11 классов. Работы до 20 ноября"
+  description: |
+    Номинации: печатный материал, радиоматериал, видеоматериал, фотопроект и спецноминация «Дружба народов».
+    Все участники получают электронные сертификаты, победители — дипломы и подарки.
+  organizer: "Институт журналистики, коммуникаций и медиаобразования МПГУ"
+  organizer_kind: university
+  format: online
+  is_federal: true
+  grade_min: 9
+  grade_max: 11
+  registration_deadline: 2026-11-20
+  price_kind: free
+  entry_kind: open
+  registration_url: https://vk.ru/konkurs.chelovek
+  level: federal
+  goals: [portfolio, skills]
+  subjects: [media, literature]
+  attributes: {art_kind: "журналистика", submission_format: "текст, аудио, видео, фото"}
+  source_url: https://vsekonkursy.ru/zhurnalistskij-konkurs-dlya-shkolnikov-cheloveku-nuzhen-chelovek.html
+  source_name: vsekonkursy.ru
+  verified_at: 2026-09-24

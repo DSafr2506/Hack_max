@@ -1,0 +1,157 @@
+# Справочники. Коды целей и типов фиксированы (инструкция, раздел 1 и H1.2) — не переименовывать.
+
+type:
+  - {code: olympiad, name: "Олимпиады", short: "Олимпиада"}
+  - {code: camp, name: "Образовательные смены", short: "Смена"}
+  - {code: hackathon, name: "Хакатоны", short: "Хакатон"}
+  - {code: career, name: "Профориентация", short: "Профориентация"}
+  - {code: grant, name: "Гранты и конкурсы проектов", short: "Грант"}
+  - {code: volunteering, name: "Волонтёрство", short: "Волонтёрство"}
+  - {code: sport, name: "Спорт", short: "Спорт"}
+  - {code: creative, name: "Творчество", short: "Творчество"}
+
+goal:
+  - {code: admission, name: "Льготы при поступлении"}
+  - {code: money, name: "Деньги и призы"}
+  - {code: free_trip, name: "Бесплатная поездка или смена"}
+  - {code: career, name: "Работа и профессия"}
+  - {code: portfolio, name: "Портфолио и дипломы"}
+  - {code: skills, name: "Новые навыки"}
+  - {code: team, name: "Команда и знакомства"}
+
+subject:
+  - {code: math, name: "Математика"}
+  - {code: informatics, name: "Информатика"}
+  - {code: physics, name: "Физика"}
+  - {code: chemistry, name: "Химия"}
+  - {code: biology, name: "Биология"}
+  - {code: ecology, name: "Экология"}
+  - {code: geography, name: "География"}
+  - {code: astronomy, name: "Астрономия"}
+  - {code: russian, name: "Русский язык"}
+  - {code: literature, name: "Литература"}
+  - {code: english, name: "Иностранные языки"}
+  - {code: history, name: "История"}
+  - {code: social, name: "Обществознание"}
+  - {code: economics, name: "Экономика"}
+  - {code: law, name: "Право"}
+  - {code: engineering, name: "Инженерия и технологии"}
+  - {code: robotics, name: "Робототехника"}
+  - {code: ai, name: "Искусственный интеллект и данные"}
+  - {code: security, name: "Информационная безопасность"}
+  - {code: medicine, name: "Медицина"}
+  - {code: art, name: "Искусство"}
+  - {code: media, name: "Медиа и журналистика"}
+  - {code: business, name: "Предпринимательство"}
+  - {code: sport, name: "Физкультура и спорт"}
+
+format:
+  - {code: online, name: "Онлайн"}
+  - {code: offline, name: "Очно"}
+  - {code: hybrid, name: "Смешанный"}
+
+price_kind:
+  - {code: free, name: "Бесплатно"}
+  - {code: paid, name: "Платно"}
+  - {code: quota, name: "По квоте региона"}
+  - {code: unknown, name: "Не указано"}
+
+entry_kind:
+  - {code: open, name: "Открытая регистрация"}
+  - {code: selection, name: "Конкурсный отбор"}
+  - {code: by_result, name: "По результатам"}
+  - {code: invite_only, name: "По приглашению"}
+
+level:
+  - {code: school, name: "Школьный"}
+  - {code: municipal, name: "Муниципальный"}
+  - {code: regional, name: "Региональный"}
+  - {code: federal, name: "Всероссийский"}
+  - {code: international, name: "Международный"}
+
+region:
+  - {code: "01", name: "Республика Адыгея", tz: "Europe/Moscow"}
+  - {code: "02", name: "Республика Башкортостан", tz: "Asia/Yekaterinburg"}
+  - {code: "03", name: "Республика Бурятия", tz: "Asia/Irkutsk"}
+  - {code: "04", name: "Республика Алтай", tz: "Asia/Barnaul"}
+  - {code: "05", name: "Республика Дагестан", tz: "Europe/Moscow"}
+  - {code: "06", name: "Республика Ингушетия", tz: "Europe/Moscow"}
+  - {code: "07", name: "Кабардино-Балкарская Республика", tz: "Europe/Moscow"}
+  - {code: "08", name: "Республика Калмыкия", tz: "Europe/Moscow"}
+  - {code: "09", name: "Карачаево-Черкесская Республика", tz: "Europe/Moscow"}
+  - {code: "10", name: "Республика Карелия", tz: "Europe/Moscow"}
+  - {code: "11", name: "Республика Коми", tz: "Europe/Moscow"}
+  - {code: "12", name: "Республика Марий Эл", tz: "Europe/Moscow"}
+  - {code: "13", name: "Республика Мордовия", tz: "Europe/Moscow"}
+  - {code: "14", name: "Республика Саха (Якутия)", tz: "Asia/Yakutsk"}
+  - {code: "15", name: "Республика Северная Осетия — Алания", tz: "Europe/Moscow"}
+  - {code: "16", name: "Республика Татарстан", tz: "Europe/Moscow"}
+  - {code: "17", name: "Республика Тыва", tz: "Asia/Krasnoyarsk"}
+  - {code: "18", name: "Удмуртская Республика", tz: "Europe/Samara"}
+  - {code: "19", name: "Республика Хакасия", tz: "Asia/Krasnoyarsk"}
+  - {code: "20", name: "Чеченская Республика", tz: "Europe/Moscow"}
+  - {code: "21", name: "Чувашская Республика", tz: "Europe/Moscow"}
+  - {code: "22", name: "Алтайский край", tz: "Asia/Barnaul"}
+  - {code: "23", name: "Краснодарский край", tz: "Europe/Moscow"}
+  - {code: "24", name: "Красноярский край", tz: "Asia/Krasnoyarsk"}
+  - {code: "25", name: "Приморский край", tz: "Asia/Vladivostok"}
+  - {code: "26", name: "Ставропольский край", tz: "Europe/Moscow"}
+  - {code: "27", name: "Хабаровский край", tz: "Asia/Vladivostok"}
+  - {code: "28", name: "Амурская область", tz: "Asia/Yakutsk"}
+  - {code: "29", name: "Архангельская область", tz: "Europe/Moscow"}
+  - {code: "30", name: "Астраханская область", tz: "Europe/Astrakhan"}
+  - {code: "31", name: "Белгородская область", tz: "Europe/Moscow"}
+  - {code: "32", name: "Брянская область", tz: "Europe/Moscow"}
+  - {code: "33", name: "Владимирская область", tz: "Europe/Moscow"}
+  - {code: "34", name: "Волгоградская область", tz: "Europe/Volgograd"}
+  - {code: "35", name: "Вологодская область", tz: "Europe/Moscow"}
+  - {code: "36", name: "Воронежская область", tz: "Europe/Moscow"}
+  - {code: "37", name: "Ивановская область", tz: "Europe/Moscow"}
+  - {code: "38", name: "Иркутская область", tz: "Asia/Irkutsk"}
+  - {code: "39", name: "Калининградская область", tz: "Europe/Kaliningrad"}
+  - {code: "40", name: "Калужская область", tz: "Europe/Moscow"}
+  - {code: "41", name: "Камчатский край", tz: "Asia/Kamchatka"}
+  - {code: "42", name: "Кемеровская область — Кузбасс", tz: "Asia/Novokuznetsk"}
+  - {code: "43", name: "Кировская область", tz: "Europe/Kirov"}
+  - {code: "44", name: "Костромская область", tz: "Europe/Moscow"}
+  - {code: "45", name: "Курганская область", tz: "Asia/Yekaterinburg"}
+  - {code: "46", name: "Курская область", tz: "Europe/Moscow"}
+  - {code: "47", name: "Ленинградская область", tz: "Europe/Moscow"}
+  - {code: "48", name: "Липецкая область", tz: "Europe/Moscow"}
+  - {code: "49", name: "Магаданская область", tz: "Asia/Magadan"}
+  - {code: "50", name: "Московская область", tz: "Europe/Moscow"}
+  - {code: "51", name: "Мурманская область", tz: "Europe/Moscow"}
+  - {code: "52", name: "Нижегородская область", tz: "Europe/Moscow"}
+  - {code: "53", name: "Новгородская область", tz: "Europe/Moscow"}
+  - {code: "54", name: "Новосибирская область", tz: "Asia/Novosibirsk"}
+  - {code: "55", name: "Омская область", tz: "Asia/Omsk"}
+  - {code: "56", name: "Оренбургская область", tz: "Asia/Yekaterinburg"}
+  - {code: "57", name: "Орловская область", tz: "Europe/Moscow"}
+  - {code: "58", name: "Пензенская область", tz: "Europe/Moscow"}
+  - {code: "59", name: "Пермский край", tz: "Asia/Yekaterinburg"}
+  - {code: "60", name: "Псковская область", tz: "Europe/Moscow"}
+  - {code: "61", name: "Ростовская область", tz: "Europe/Moscow"}
+  - {code: "62", name: "Рязанская область", tz: "Europe/Moscow"}
+  - {code: "63", name: "Самарская область", tz: "Europe/Samara"}
+  - {code: "64", name: "Саратовская область", tz: "Europe/Saratov"}
+  - {code: "65", name: "Сахалинская область", tz: "Asia/Sakhalin"}
+  - {code: "66", name: "Свердловская область", tz: "Asia/Yekaterinburg"}
+  - {code: "67", name: "Смоленская область", tz: "Europe/Moscow"}
+  - {code: "68", name: "Тамбовская область", tz: "Europe/Moscow"}
+  - {code: "69", name: "Тверская область", tz: "Europe/Moscow"}
+  - {code: "70", name: "Томская область", tz: "Asia/Tomsk"}
+  - {code: "71", name: "Тульская область", tz: "Europe/Moscow"}
+  - {code: "72", name: "Тюменская область", tz: "Asia/Yekaterinburg"}
+  - {code: "73", name: "Ульяновская область", tz: "Europe/Ulyanovsk"}
+  - {code: "74", name: "Челябинская область", tz: "Asia/Yekaterinburg"}
+  - {code: "75", name: "Забайкальский край", tz: "Asia/Chita"}
+  - {code: "76", name: "Ярославская область", tz: "Europe/Moscow"}
+  - {code: "77", name: "Москва", tz: "Europe/Moscow"}
+  - {code: "78", name: "Санкт-Петербург", tz: "Europe/Moscow"}
+  - {code: "79", name: "Еврейская автономная область", tz: "Asia/Vladivostok"}
+  - {code: "83", name: "Ненецкий автономный округ", tz: "Europe/Moscow"}
+  - {code: "86", name: "Ханты-Мансийский автономный округ — Югра", tz: "Asia/Yekaterinburg"}
+  - {code: "87", name: "Чукотский автономный округ", tz: "Asia/Anadyr"}
+  - {code: "89", name: "Ямало-Ненецкий автономный округ", tz: "Asia/Yekaterinburg"}
+  - {code: "91", name: "Республика Крым", tz: "Europe/Simferopol"}
+  - {code: "92", name: "Севастополь", tz: "Europe/Simferopol"}

@@ -825,3 +825,24 @@ legend {
     margin-bottom: 24px;
   }
 }
+
+/* интеграция с бэкендом: действия в карточке и «Мои даты» */
+.detail-actions {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 24px;
+}
+.detail-actions .primary {
+  width: 100%;
+}
+.my-dates ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: grid;
+  gap: 6px;
+}
+.my-dates li .text-button {
+  text-align: left;
+  width: 100%;
+}

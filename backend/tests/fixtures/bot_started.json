@@ -1,0 +1,8 @@
+{
+  "update_type": "bot_started",
+  "timestamp": 1790000000000,
+  "chat_id": 555,
+  "user": {"user_id": 12345, "first_name": "***", "is_bot": false, "last_activity_time": 1790000000000},
+  "payload": null,
+  "user_locale": "ru"
+}

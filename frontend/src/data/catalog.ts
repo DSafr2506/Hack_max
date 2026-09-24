@@ -239,3 +239,53 @@ export const SPECIAL: Record<EventType, Field[]> = {
 };
 export const valueLabel = (v: string | number | boolean) =>
   typeof v === "boolean" ? (v ? "Да" : "Нет") : String(v);
+
+// ─── данные с бэкенда ───
+// Справочники выше — демонстрационные (на них держатся unit-тесты). В приложении
+// при запуске они заменяются настоящими: города и регионы из /api/dicts,
+// варианты фильтров — из загруженных мероприятий. Массивы меняются на месте,
+// чтобы все модули, которые их импортировали, увидели новые значения.
+
+export function applyBackendDicts(d: {
+  region: { code: string; name: string }[];
+  city: { name: string; region_code: string }[];
+}) {
+  const names = Object.fromEntries(d.region.map((r) => [r.code, r.name]));
+  REGIONS.splice(0, REGIONS.length, ...d.region.map((r) => r.name));
+  CITIES.splice(
+    0,
+    CITIES.length,
+    ...d.city.map((c) => ({
+      id: c.name,
+      name: c.name,
+      region: names[c.region_code] ?? c.region_code,
+    })),
+  );
+}
+
+// поля с постоянным словарём — их варианты не пересчитываем
+const FIXED = new Set(["grades", "format", "participation", "cost", "admission", "level"]);
+
+export function refreshOptionsFromEvents(
+  events: { [key: string]: unknown; type: string; special: object }[],
+) {
+  const distinct = (values: unknown[]) =>
+    [...new Set(values.filter((v): v is string => typeof v === "string" && v !== ""))].sort(
+      (a, b) => a.localeCompare(b, "ru"),
+    );
+  for (const field of GROUPS.flatMap((g) => g.fields)) {
+    if (!field.options || FIXED.has(field.key)) continue;
+    const values = distinct(events.map((e) => e[field.key]));
+    if (values.length) field.options = values;
+  }
+  for (const [type, fields] of Object.entries(SPECIAL)) {
+    const own = events.filter((e) => e.type === type);
+    for (const field of fields) {
+      if (!field.options) continue;
+      const values = distinct(
+        own.map((e) => (e.special as Record<string, unknown>)[field.key]),
+      );
+      if (values.length) field.options = values;
+    }
+  }
+}
