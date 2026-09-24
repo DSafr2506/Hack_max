@@ -1,0 +1,4 @@
+# Всё в LF: Dockerfile, скрипты и Caddyfile исполняются в Linux-контейнерах
+* text=auto eol=lf
+*.png binary
+*.pem text eol=lf
