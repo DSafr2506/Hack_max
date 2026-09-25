@@ -2,8 +2,9 @@
 
 ## Стек
 Бэкенд: Python 3.12, FastAPI, синхронный SQLAlchemy 2.0, SQLite, APScheduler, httpx, pydantic v2.
+LLM: OpenRouter (OpenAI-совместимый API), модель из LLM_MODEL (по умолчанию DeepSeek). Только извлечение, публикует человек.
 Фронт (frontend/): React 18 + TypeScript + Vite, без UI-библиотек и роутеров.
-Выкат: Docker Compose (backend + Caddy), см. DEPLOY.md. Один процесс бэкенда, один воркер.
+Выкат: общий Dockerfile в корне (фронт + бэкенд в одном образе), Caddy — только HTTPS на сервере. См. DEPLOY.md. Один процесс бэкенда, один воркер.
 Не добавлять: Celery, Redis, Alembic, ORM-обёртки, DI-фреймворки.
 
 ## Код

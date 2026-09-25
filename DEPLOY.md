@@ -74,6 +74,7 @@ MAX_BOT_TOKEN=<токен бота>
 MAX_BOT_NAME=t829_hakaton_max_bot
 MAX_MODE=polling
 DEV_FAKE_AUTH=0
+LLM_API_KEY=<ключ OpenRouter, если нужен конвейер наполнения>
 ```
 
 `MAX_CA_BUNDLE` оставьте как в примере: бандл собирается в образе.
@@ -119,6 +120,10 @@ MAX_WEBHOOK_SECRET=<openssl rand -hex 24>
 4. На карточке нажать «Перейти к регистрации» → открывается сайт организатора.
 5. Демо-напоминание: откройте приложение по ссылке `https://max.ru/t829_hakaton_max_bot?startapp=demo` — в карточке появится «Демо-напоминание», через ≤30 секунд придёт сообщение от бота.
 6. Цифры для питча: `curl -s -H "X-Admin-Token: <ADMIN_TOKEN>" https://app.ваш-домен.ru/api/admin/stats`.
+
+## 8.1. Конвейер наполнения
+
+Экран модерации: `https://app.ваш-домен.ru/admin`, вход по `ADMIN_TOKEN`. Проверка ключа OpenRouter с сервера: `docker compose exec app python -m app.llm`. Если OpenRouter не отвечает с российского IP, запускайте конвейер локально, а на сервер переносите уже одобренные мероприятия через `backend/data/events.yaml`.
 
 ## 9. Бэкапы
 

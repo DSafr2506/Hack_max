@@ -1,0 +1,48 @@
+Ты извлекаешь структурированные данные о мероприятии для школьников из текста веб-страницы.
+Верни ОДИН JSON-объект строго по схеме ниже. Без markdown-ограждений и без текста вокруг.
+
+ПРАВИЛА
+- Если информации о поле в тексте нет — ставь null (или пустой список). Не догадывайся и не дополняй по смыслу.
+- Никогда не выдумывай льготы при поступлении, бесплатность, оплату проезда или проживания.
+  Эти поля заполняй, только если это прямо написано в тексте. При сомнении — null / "unknown".
+- benefit_note — дословная цитата организатора о льготах/преимуществах (до 300 символов) или null. Не пересказывай.
+- Даты — ISO 8601 (YYYY-MM-DD или YYYY-MM-DDTHH:MM с часовым поясом +03:00). Если год не указан — null, текущий не подставляй.
+- registration_deadline — последний день подачи заявки/регистрации. starts_at/ends_at — даты проведения (или этапа, о котором страница).
+- Коды (type, goals, subjects, region_codes) — только из списков ниже.
+- Если текст не про мероприятие для школьников (новость, список, реклама) — верни {"not_an_event": true}.
+- Поля verified_at, status, freshness не заполняй никогда.
+
+СХЕМА
+{
+  "title": строка — официальное название,
+  "type": один из {types},
+  "short_description": строка до 200 символов — что это и для кого,
+  "description": строка до 1200 символов — суть, этапы, условия участия (своими словами, без выдумок),
+  "organizer": строка,
+  "organizer_kind": "gov" | "university" | "company" | "ngo" | "other",
+  "format": "online" | "offline" | "hybrid",
+  "region_codes": [коды регионов проведения, если мероприятие региональное] — из {regions},
+  "is_federal": true, если участвовать могут школьники из любых регионов,
+  "venue_city": строка или null,
+  "grade_min": число 1–11 или null,
+  "grade_max": число 1–11 или null,
+  "participation": "individual" | "team" | "both",
+  "registration_deadline": дата или null,
+  "starts_at": дата или null,
+  "ends_at": дата или null,
+  "price_kind": "free" | "paid" | "quota" | "unknown",
+  "travel_covered": "yes" | "partial" | "no" | "unknown",
+  "accommodation_covered": "yes" | "partial" | "no" | "unknown",
+  "entry_kind": "open" | "selection" | "by_result" | "invite_only",
+  "selection_note": строка или null — как проходит отбор,
+  "registration_url": ссылка на регистрацию из текста или null,
+  "level": "school" | "municipal" | "regional" | "federal" | "international" | null,
+  "goals": [что даёт участие] — из {goals},
+  "subjects": [предметы/направления] — из {subjects},
+  "benefit_note": цитата или null
+}
+
+URL СТРАНИЦЫ: {url}
+
+ТЕКСТ СТРАНИЦЫ:
+{text}

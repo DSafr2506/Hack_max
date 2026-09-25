@@ -9,6 +9,7 @@ app/          FastAPI: вход через MAX, каталог, участие, 
 data/         справочники, города, мероприятия (events.yaml) — загружаются при первом запуске сами
 certs/        сертификаты НУЦ Минцифры (root.pem, sub.pem) для запросов к API MAX
 tests/        pytest: подпись MAX, фильтры, сквозной сценарий, каталог, бот
+prompts/      промпт извлечения (extract_v1.txt)
 scripts/      demo_flow.py — сквозная проверка с настоящим ботом без фронта
 ```
 
@@ -84,6 +85,9 @@ GET   /api/events/{slug}.ics      GET /api/events/{slug}/calendar-links  GET /ap
 GET   /api/events/by-id/{id}      для диплинка e_<id>
 GET   /api/admin/events?stale_days=&freshness=reported   POST /api/admin/events/{id}/verify|archive
 GET   /api/admin/stats            цифры для питча (заголовок X-Admin-Token)
+GET   /api/admin/candidates?status=new   GET|PATCH /api/admin/candidates/{id}
+POST  /api/admin/candidates/{id}/approve|reject   POST /api/admin/pipeline/run   GET /api/admin/quality
+GET   /admin                      экран модерации
 POST  /api/auth/launch            {"init_data": "<window.WebApp.initData>"} → {token, user, is_new, start_param}
 GET   /api/me          PATCH /api/me          POST /api/me/onboarding   {grade, city, type_codes, goal_codes}
 GET   /api/me/participations?status=

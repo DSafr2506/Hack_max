@@ -14,6 +14,7 @@ from sqlalchemy import func, select
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app import logic, maxapi
+from app.admin import page_router as admin_page_router
 from app.admin import router as admin_router
 from app.api import router
 from app.config import settings
@@ -91,11 +92,12 @@ def create_app(start_background: bool = True) -> FastAPI:
 
     app.include_router(router)
     app.include_router(admin_router)
+    app.include_router(admin_page_router)
     mount_frontend(app, Path(settings.static_dir))
     return app
 
 
-API_PREFIXES = ("api/", "go/", "max/", "health")
+API_PREFIXES = ("api/", "go/", "max/", "health", "admin")
 
 
 def mount_frontend(app: FastAPI, static: Path) -> None:

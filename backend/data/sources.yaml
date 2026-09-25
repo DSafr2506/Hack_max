@@ -1,0 +1,24 @@
+# Источники для конвейера наполнения (python -m app.fetch → python -m app.extract).
+# kind: single_page — одна страница = одно мероприятие;
+#       html_list   — страница-список, берём ссылки по link_pattern (регулярка) и сохраняем каждую.
+# Сайт закрыт антиботом или robots.txt — просто уберите его (active: false), не боритесь.
+
+- name: "Олимпиада.ру — Национальная технологическая олимпиада"
+  url: https://olimpiada.ru/activity/5369
+  kind: single_page
+- name: "Олимпиада.ру — Физтех по математике"
+  url: https://olimpiada.ru/activity/395
+  kind: single_page
+- name: "Олимпиада.ру — олимпиада РАНХиГС по обществознанию"
+  url: https://olimpiada.ru/activity/5009
+  kind: single_page
+- name: "Сириус — программы направления «Наука»"
+  url: https://sochisirius.ru/obuchenie/nauka
+  kind: html_list
+  link_pattern: '/obuchenie/nauka/smena\d+$'
+- name: "Хакатоны PROD для школьников"
+  url: http://prodcontest.com/hackathon
+  kind: single_page
+- name: "InnoCTF Junior"
+  url: https://dovuz.innopolis.university/innoctfjunior
+  kind: single_page

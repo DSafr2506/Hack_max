@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Модерация — Агрегатор возможностей</title>
+<style>
+  :root { --a:#5344ed; --ink:#1f1d2e; --muted:#6c6882; --line:#e3e2ef; --bg:#f4f4fb; font-family: Inter, system-ui, sans-serif; color: var(--ink); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); }
+  header { display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:12px 16px; background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:2; }
+  header h1 { font-size:17px; margin:0 12px 0 0; }
+  input, select, textarea, button { font: inherit; }
+  input, select, textarea { border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:#fff; width:100%; }
+  button { border:0; border-radius:8px; padding:8px 12px; background:#ebeafd; color:var(--a); font-weight:600; cursor:pointer; white-space:nowrap; }
+  button.primary { background:var(--a); color:#fff; }
+  button.danger { background:#fde8e8; color:#c0392b; }
+  .wrap { display:grid; grid-template-columns: 300px 1fr 1fr; gap:12px; padding:12px; height: calc(100vh - 62px); }
+  .col { background:#fff; border:1px solid var(--line); border-radius:12px; overflow:auto; }
+  .list .item { padding:10px 12px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .list .item.on { background:#f0efff; }
+  .list .item small { color:var(--muted); display:block; }
+  .raw { padding:12px 14px; white-space:pre-wrap; font-size:14px; line-height:1.45; }
+  .form { padding:12px 14px; display:grid; grid-template-columns: 1fr 1fr; gap:8px 10px; align-content:start; }
+  .form label { font-size:12px; color:var(--muted); display:flex; flex-direction:column; gap:3px; }
+  .form .wide { grid-column: span 2; }
+  .goals { display:flex; flex-wrap:wrap; gap:6px; }
+  .goals label { flex-direction:row; align-items:center; gap:4px; font-size:13px; color:var(--ink); }
+  .goals input { width:auto; }
+  .checks { background:#fff7e6; color:#8a5a00; border-radius:8px; padding:8px 10px; font-size:13px; }
+  .actions { display:flex; gap:8px; flex-wrap:wrap; }
+  .msg { font-size:13px; color:var(--muted); }
+  .badge { font-size:11px; padding:2px 6px; border-radius:6px; background:#eee; margin-left:6px; }
+  @media (max-width: 900px) { .wrap { grid-template-columns: 1fr; height:auto; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Модерация кандидатов</h1>
+  <input id="token" type="password" placeholder="ADMIN_TOKEN" style="max-width:220px" />
+  <select id="status" style="max-width:160px">
+    <option value="new">Новые</option><option value="duplicate">Дубли</option>
+    <option value="approved">Одобренные</option><option value="rejected">Отклонённые</option><option value="">Все</option>
+  </select>
+  <button id="reload">Обновить</button>
+  <button id="run">Собрать новые страницы</button>
+  <span class="msg" id="stats"></span>
+</header>
+<div class="wrap">
+  <div class="col list" id="list"></div>
+  <div class="col"><div class="raw" id="raw">Выберите кандидата слева. Здесь будет исходный текст со страницы организатора.</div></div>
+  <div class="col"><div class="form" id="form"></div></div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+let dicts = null, current = null;
+$("token").value = sessionStorage.getItem("adminToken") || "";
+$("token").onchange = () => {
+  sessionStorage.setItem("adminToken", $("token").value);
+  loadList();
+};
+
+async function api(method, path, body) {
+  const r = await fetch(path, { method, headers: { "X-Admin-Token": $("token").value, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data?.error?.message || r.statusText);
+  return data;
+}
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
+async function loadList() {
+  try {
+    dicts = dicts || (await (await fetch("/api/dicts")).json());
+    const q = await api("GET", "/api/admin/quality");
+    $("stats").textContent = `одобрено ${q.approved}, правок в среднем ${q.avg_edited_fields ?? "—"}, LLM $${q.llm_cost_usd} (${q.model})`;
+    const list = await api("GET", "/api/admin/candidates?status=" + $("status").value);
+    $("list").innerHTML = list.length ? list.map((c) =>
+      `<div class="item" data-id="${c.id}"><b>${esc(c.payload.title || "(без названия)")}</b><span class="badge">${Math.round(c.confidence * 100)}%</span>
+       <small>${esc(c.status)} · ${esc(c.source_url || "")}</small>${c.reject_reason ? `<small>${esc(c.reject_reason).slice(0, 120)}</small>` : ""}</div>`).join("")
+      : '<div class="item">Пусто. Нажмите «Собрать новые страницы».</div>';
+    document.querySelectorAll(".item[data-id]").forEach((el) => (el.onclick = () => open(+el.dataset.id)));
+  } catch (e) { $("list").innerHTML = `<div class="item">Ошибка: ${esc(e.message)}. Проверьте токен.</div>`; }
+}
+
+const SELECTS = {
+  type: ["olympiad", "camp", "hackathon", "career", "grant", "volunteering", "sport", "creative"],
+  format: ["online", "offline", "hybrid"], organizer_kind: ["gov", "university", "company", "ngo", "other"],
+  participation: ["individual", "team", "both"], price_kind: ["free", "paid", "quota", "unknown"],
+  travel_covered: ["yes", "partial", "no", "unknown"], accommodation_covered: ["yes", "partial", "no", "unknown"],
+  entry_kind: ["open", "selection", "by_result", "invite_only"], level: ["", "school", "municipal", "regional", "federal", "international"],
+};
+const TEXT = ["title:wide", "short_description:wide", "description:wide:area", "organizer", "venue_city", "registration_deadline", "starts_at", "ends_at", "grade_min", "grade_max", "region_codes", "subjects", "registration_url:wide", "selection_note:wide", "benefit_note:wide:area"];
+
+async function open(id) {
+  document.querySelectorAll(".item").forEach((el) => el.classList.toggle("on", +el.dataset.id === id));
+  current = await api("GET", "/api/admin/candidates/" + id);
+  const p = current.payload;
+  $("raw").innerHTML = `<a href="${esc(current.source_url)}" target="_blank" rel="noreferrer">${esc(current.source_url)}</a>\n\n${esc(current.text)}`;
+  let html = "";
+  if ((p.checks || []).length) html += `<div class="checks wide">Автопроверки: ${p.checks.map(esc).join("; ")}</div>`;
+  for (const spec of TEXT) {
+    const [k, wide, area] = spec.split(":");
+    const v = Array.isArray(p[k]) ? p[k].join(",") : p[k] ?? "";
+    html += `<label class="${wide ? "wide" : ""}">${k}${area ? `<textarea data-k="${k}" rows="4">${esc(v)}</textarea>` : `<input data-k="${k}" value="${esc(v)}">`}</label>`;
+    if (k === "organizer") for (const [sk, opts] of Object.entries(SELECTS))
+      html += `<label>${sk}<select data-k="${sk}">${opts.map((o) => `<option ${p[sk] === o || (!p[sk] && !o) ? "selected" : ""}>${o}</option>`).join("")}</select></label>`;
+  }
+  html += `<label class="wide">is_federal <select data-k="is_federal"><option ${p.is_federal ? "" : "selected"}>false</option><option ${p.is_federal ? "selected" : ""}>true</option></select></label>`;
+  html += `<div class="wide"><div style="font-size:12px;color:var(--muted)">goals</div><div class="goals">${dicts.goal.map((g) =>
+    `<label><input type="checkbox" data-goal="${g.code}" ${(p.goals || []).includes(g.code) ? "checked" : ""}>${esc(g.name)}</label>`).join("")}</div></div>`;
+  html += `<div class="wide actions"><button id="save">Сохранить правки</button><button class="primary" id="approve">Одобрить → в ленту</button>
+    <input id="reason" placeholder="причина отклонения" style="max-width:220px"><button class="danger" id="reject">Отклонить</button></div>
+    <div class="wide msg" id="fmsg">${current.edited_fields.length ? "Правлено: " + current.edited_fields.join(", ") : ""}</div>`;
+  $("form").innerHTML = html;
+  $("save").onclick = () => save().then(() => ($("fmsg").textContent = "Сохранено")).catch((e) => ($("fmsg").textContent = e.message));
+  $("approve").onclick = async () => {
+    try { await save(); const r = await api("POST", `/api/admin/candidates/${current.id}/approve`); $("fmsg").textContent = `Опубликовано: /api/events/${r.event.slug}`; loadList(); }
+    catch (e) { $("fmsg").textContent = "Ошибка: " + e.message; }
+  };
+  $("reject").onclick = async () => { await api("POST", `/api/admin/candidates/${current.id}/reject`, { reason: $("reason").value }); loadList(); };
+}
+
+function collect() {
+  const out = {};
+  document.querySelectorAll("[data-k]").forEach((el) => {
+    const k = el.dataset.k; let v = el.value.trim();
+    if (["region_codes", "subjects"].includes(k)) v = v ? v.split(",").map((x) => x.trim()).filter(Boolean) : [];
+    else if (["grade_min", "grade_max"].includes(k)) v = v ? Number(v) : null;
+    else if (k === "is_federal") v = v === "true";
+    else if (v === "") v = null;
+    out[k] = v;
+  });
+  out.goals = [...document.querySelectorAll("[data-goal]:checked")].map((el) => el.dataset.goal);
+  return out;
+}
+const save = () => api("PATCH", "/api/admin/candidates/" + current.id, { payload: collect() });
+
+$("reload").onclick = loadList;
+$("status").onchange = loadList;
+$("run").onclick = async () => {
+  try { const r = await api("POST", "/api/admin/pipeline/run?limit=5"); $("stats").textContent = r.started ? "Собираем… обновите список через минуту" : r.message; }
+  catch (e) { $("stats").textContent = e.message; }
+};
+if ($("token").value) loadList();
+</script>
+</body>
+</html>

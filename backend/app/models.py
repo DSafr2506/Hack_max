@@ -195,6 +195,7 @@ class Source(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     last_run_at: Mapped[datetime | None] = mapped_column(UTCDateTime)
     last_status: Mapped[str | None] = mapped_column(String(64))
+    link_pattern: Mapped[str | None] = mapped_column(String(300))
 
 
 class RawDocument(Base):
@@ -221,3 +222,11 @@ class Candidate(Base):
     prompt_version: Mapped[str | None] = mapped_column(String(32))
     reviewed_at: Mapped[datetime | None] = mapped_column(UTCDateTime)
     reject_reason: Mapped[str | None] = mapped_column(Text)
+    original_payload: Mapped[dict | None] = mapped_column(JSON)  # как вернула модель — для метрики правок
+    edited_fields: Mapped[list | None] = mapped_column(JSON)  # какие поля поправил модератор
+    tokens_in: Mapped[int | None] = mapped_column(Integer)
+    tokens_out: Mapped[int | None] = mapped_column(Integer)
+    cost_usd: Mapped[float | None] = mapped_column(Float)
+    created_at: Mapped[datetime | None] = mapped_column(UTCDateTime, default=utcnow)
+
+    raw_document: Mapped["RawDocument | None"] = relationship()

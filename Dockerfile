@@ -42,6 +42,7 @@ PY
 COPY backend/app ./app
 COPY backend/data ./data
 COPY backend/scripts ./scripts
+COPY backend/prompts ./prompts
 COPY --from=front /front/dist ./static
 
 ENV DATABASE_URL=sqlite:////data/app.db MAX_CA_BUNDLE=/app/ca-bundle.pem STATIC_DIR=/app/static

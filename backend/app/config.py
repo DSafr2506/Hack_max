@@ -31,10 +31,11 @@ class Settings(BaseSettings):
     # собранный фронт (в общем Docker-образе лежит здесь); если папки нет — бэкенд отдаёт только API
     static_dir: str = "/app/static"
 
-    # GigaChat (модуль H8)
-    giga_auth_key: str = ""
-    giga_scope: str = "GIGACHAT_API_PERS"
-    giga_ca_bundle: str = ""
+    # LLM для конвейера наполнения (модуль H8): OpenRouter, OpenAI-совместимый API
+    llm_api_base: str = "https://openrouter.ai/api/v1"
+    llm_api_key: str = ""
+    llm_model: str = "deepseek/deepseek-v4.1-flash"
+    llm_timeout: float = 90.0
 
 
 @lru_cache
