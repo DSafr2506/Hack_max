@@ -53,8 +53,8 @@ systemctl restart docker
 ## 3. Код и настройки
 
 ```bash
-git clone -b integration-backend https://github.com/DSafr2506/Hack_max.git /opt/max-app
-cd /opt/max-app
+git clone -b integration-backend https://github.com/DSafr2506/Hack_max.git /opt/hack-max
+cd /opt/hack-max
 cp .env.example .env && chmod 600 .env
 nano .env
 ```
@@ -129,10 +129,10 @@ MAX_WEBHOOK_SECRET=<openssl rand -hex 24>
 
 ```bash
 crontab -e
-# 0 3 * * * cd /opt/max-app && ./deploy/backup.sh >> backups/backup.log 2>&1
+# 0 3 * * * cd /opt/hack-max && ./deploy/backup.sh >> backups/backup.log 2>&1
 ```
 
-Снимки базы — в `/opt/max-app/backups`, хранятся 14 последних. Восстановление:
+Снимки базы — в `/opt/hack-max/backups`, хранятся 14 последних. Восстановление:
 
 ```bash
 docker compose stop app
@@ -146,7 +146,7 @@ docker compose start app
 # у себя
 git commit -am "…" && git tag v0.2 && git push --follow-tags
 # на сервере
-cd /opt/max-app && ./deploy/update.sh v0.2
+cd /opt/hack-max && ./deploy/update.sh v0.2
 ```
 
 `update.sh` делает бэкап, пересобирает контейнеры и ждёт `/health`. Если сервис не поднялся, он откатывается на прошлый коммит. Новые мероприятия: правите `backend/data/events.yaml` → коммит → `update.sh` → `docker compose exec app python -m app.seed`.

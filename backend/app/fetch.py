@@ -17,6 +17,8 @@ from urllib.parse import urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
 import httpx
+
+from app.tls import ca_bundle
 import yaml
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -80,7 +82,9 @@ def html_to_text(html: str, base: str = "") -> tuple[str, list[str], str]:
 
 class Fetcher:
     def __init__(self, client: httpx.Client | None = None) -> None:
-        self.http = client or httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=20, follow_redirects=True)
+        self.http = client or httpx.Client(
+            headers={"User-Agent": USER_AGENT}, timeout=20, follow_redirects=True, verify=ca_bundle()
+        )
         self.robots: dict[str, RobotFileParser] = {}
         self.last_hit: dict[str, float] = {}
 

@@ -15,15 +15,21 @@ scripts/      demo_flow.py — сквозная проверка с настоя
 
 ## Локальный запуск (Windows, без Docker)
 
+Настройки — один файл `.env` в корне проекта (рядом с `docker-compose.yml`), бэкенд читает его сам. Сертификаты НУЦ для API MAX берутся из `backend/certs/` автоматически.
+
 Бэкенд (первый терминал):
 
 ```bat
+cd C:\Users\Ег\projects\hack-max
+copy .env.example .env          :: если .env ещё нет; вписать MAX_BOT_TOKEN, для отладки в браузере DEV_FAKE_AUTH=1
+cd backend
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-copy .env.example .env          :: вписать MAX_BOT_TOKEN, MAX_BOT_NAME; для отладки в браузере DEV_FAKE_AUTH=1
 uvicorn app.main:app --reload
 ```
+
+База без Docker — `backend/app.db`.
 
 Фронт (второй терминал, из папки `frontend` в корне репозитория): `npm ci && npm run dev`, затем http://127.0.0.1:5173/?dev=me — вход под тестовым пользователем (нужен `DEV_FAKE_AUTH=1`). `&demo=1` включает демо-режим: кнопку «Демо-напоминание» в карточке.
 

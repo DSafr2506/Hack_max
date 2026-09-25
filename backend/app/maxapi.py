@@ -19,6 +19,7 @@ from urllib.parse import parse_qsl, unquote, urlsplit
 import httpx
 
 from app.config import settings
+from app.tls import ca_bundle
 
 log = logging.getLogger("app.maxapi")
 
@@ -162,7 +163,7 @@ class MaxClient:
         transport: httpx.BaseTransport | None = None,
         sleep: Callable[[float], None] = time.sleep,
     ) -> None:
-        verify: str | bool = settings.max_ca_bundle or True
+        verify: str | bool = ca_bundle()
         self._http = httpx.Client(
             base_url=base_url or settings.max_api_base,
             headers={"Authorization": token if token is not None else settings.max_bot_token},

@@ -1,6 +1,8 @@
 # Всё приложение — один контейнер `app` (фронт + API + бот).
 #   локально:    docker compose up -d --build   → http://localhost:8080
 #   на сервере:  в .env COMPOSE_PROFILES=https и DOMAIN=app.ваш-домен.ru → добавится Caddy с HTTPS на 80/443
+name: hack-max
+
 services:
   app:
     build: .

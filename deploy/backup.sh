@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Снимок SQLite без остановки. Запускать из папки проекта; в cron:
-# 0 3 * * * cd /opt/max-app && ./deploy/backup.sh >> backups/backup.log 2>&1
+# 0 3 * * * cd /opt/hack-max && ./deploy/backup.sh >> backups/backup.log 2>&1
 set -euo pipefail
 mkdir -p backups
 STAMP=$(date +%Y%m%d-%H%M%S)

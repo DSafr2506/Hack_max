@@ -149,3 +149,16 @@ def test_ensure_webhook_resubscribes(fake_max, monkeypatch):
     assert sub["url"] == "https://example.org/max/webhook"
     assert sub["secret"] == "s3cret_value"
     assert "message_callback" in sub["update_types"]
+
+
+def test_ca_bundle_built_from_certs(tmp_path, monkeypatch):
+    from app import tls
+    from app.config import settings
+
+    (tmp_path / "certs").mkdir()
+    (tmp_path / "certs" / "root.pem").write_text("-----BEGIN CERTIFICATE-----\nNUC\n-----END CERTIFICATE-----\n")
+    monkeypatch.setattr(tls, "BACKEND_DIR", tmp_path)
+    monkeypatch.setattr(settings, "max_ca_bundle", "/nonexistent/ca.pem")
+    path = tls.ca_bundle()
+    text = open(path, encoding="utf-8").read()
+    assert path.endswith("ca-bundle.pem") and "NUC" in text and text.count("BEGIN CERTIFICATE") > 10

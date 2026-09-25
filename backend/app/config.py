@@ -1,13 +1,19 @@
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+BACKEND_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = BACKEND_DIR.parent
+
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    # Один .env на весь проект — в корне (рядом с docker-compose.yml).
+    # В Docker переменные приходят из compose, файл внутри контейнера не нужен.
+    model_config = SettingsConfigDict(env_file=(PROJECT_DIR / ".env", ".env"), extra="ignore")
 
     env: str = "dev"
-    database_url: str = "sqlite:///./app.db"
+    database_url: str = f"sqlite:///{(BACKEND_DIR / 'app.db').as_posix()}"
     jwt_secret: str = "dev-secret-change-me"
     jwt_ttl_days: int = 7
     admin_token: str = ""

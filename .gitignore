@@ -18,3 +18,5 @@ backups/
 ca-bundle.pem
 *.crt
 backend/tests/fixtures/real_*.json
+backend/ca-bundle.pem
+backend/app.db*
