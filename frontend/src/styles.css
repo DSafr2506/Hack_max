@@ -1814,6 +1814,9 @@ body {
 .profile-feature-card > img.profile-feature-art--bell {
   transform: translateY(-50%) scaleX(-1);
 }
+.profile-feature-card > img.profile-feature-art--heart {
+  transform: translateY(-50%) rotateY(180deg);
+}
 .profile-subpage {
   padding-top: 0;
 }
