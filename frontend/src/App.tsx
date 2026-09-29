@@ -37,6 +37,16 @@ const figmaFeedFilters = (p: Profile): Filters => ({
   goals: [GOALS[0], GOALS[3], GOALS[2]],
   soon: true,
 });
+const PAGE_SIZE = 3;
+
+function paginationItems(current: number, total: number): (number | "ellipsis-start" | "ellipsis-end")[] {
+  const range = (start: number, end: number) => Array.from({ length: end - start + 1 }, (_, index) => start + index);
+  if (total <= 6) return range(1, total);
+  if (current <= 3) return [...range(1, 5), "ellipsis-end", total];
+  if (current >= total - 2) return [1, "ellipsis-start", ...range(total - 4, total)];
+  return [1, "ellipsis-start", current - 1, current, current + 1, "ellipsis-end", total];
+}
+
 export default function App() {
   const [profile, setProfile] = useState(loadBrowserProfile);
   const [draft, setDraft] = useState(profile);
@@ -49,11 +59,10 @@ export default function App() {
   const [shareNotice, setShareNotice] = useState("");
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<Filters>(() => figmaFeedFilters(profile));
+  const [currentPage, setCurrentPage] = useState(1);
   const [sheet, setSheet] = useState(false);
   const [quickFilter, setQuickFilter] = useState<"subject" | "organizer" | null>(null);
-  const [headerMenuOpen, setHeaderMenuOpen] = useState(false);
   const quickFilterRef = useRef<HTMLDivElement>(null);
-  const headerMenuRef = useRef<HTMLDivElement>(null);
   const [event, setEvent] = useState<Opportunity | null>(null);
   const [events, setEvents] = useState<Opportunity[]>([]);
   const [mode, setMode] = useState<DemoMode>("normal");
@@ -89,22 +98,7 @@ export default function App() {
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [quickFilter]);
-  useEffect(() => {
-    if (!headerMenuOpen) return;
-    const closeOnOutsidePointer = (e: PointerEvent) => {
-      if (e.target instanceof Node && !headerMenuRef.current?.contains(e.target))
-        setHeaderMenuOpen(false);
-    };
-    const closeOnEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setHeaderMenuOpen(false);
-    };
-    window.addEventListener("pointerdown", closeOnOutsidePointer);
-    window.addEventListener("keydown", closeOnEscape);
-    return () => {
-      window.removeEventListener("pointerdown", closeOnOutsidePointer);
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [headerMenuOpen]);
+  useEffect(() => setCurrentPage(1), [filters, search, mode]);
   function load(m: DemoMode) {
     setStatus("loading");
     setMode(m);
@@ -131,6 +125,9 @@ export default function App() {
       .toLocaleLowerCase("ru")
       .includes(search.trim().toLocaleLowerCase("ru")),
   );
+  const pageCount = Math.ceil(visibleFound.length / PAGE_SIZE);
+  const safePage = Math.min(currentPage, Math.max(pageCount, 1));
+  const pageEvents = visibleFound.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
   function toggleId(list: string[], setList: (next: string[]) => void, id: string) {
     setList(list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
   }
@@ -194,25 +191,7 @@ export default function App() {
       <header className="app-header">
         <button className="header-control" aria-label="Назад" onClick={() => setEvent(null)}>×</button>
         <button className="brand" onClick={() => { setEvent(null); setView("feed"); }}>Дерзай</button>
-        <div className="header-actions" ref={headerMenuRef}>
-          <button
-            className="header-control"
-            aria-label="Дополнительные действия"
-            aria-haspopup="menu"
-            aria-expanded={headerMenuOpen}
-            onClick={() => setHeaderMenuOpen((open) => !open)}
-          >⋮</button>
-          {headerMenuOpen && (
-            <div className="header-action-menu" role="menu" aria-label="Дополнительные действия">
-              <button role="menuitem" onClick={() => { setHeaderMenuOpen(false); void shareOpportunity(event); }}>
-                Поделиться мероприятием
-              </button>
-              <button role="menuitem" onClick={() => { setHeaderMenuOpen(false); setEvent(null); setView("profile"); }}>
-                Профиль
-              </button>
-            </div>
-          )}
-        </div>
+        <button className="header-control" aria-label="Обновить мини-приложение" title="Обновить" onClick={() => window.location.reload()}>⋮</button>
       </header>
       <Details
         event={event}
@@ -238,25 +217,7 @@ export default function App() {
       <header className="app-header">
         <button className="header-control" aria-label="На главную" onClick={() => setView("feed")}>×</button>
         <button className="brand" onClick={() => setView("feed")}>Дерзай</button>
-        <div className="header-actions" ref={headerMenuRef}>
-          <button
-            className="header-control"
-            aria-label="Дополнительные действия"
-            aria-haspopup="menu"
-            aria-expanded={headerMenuOpen}
-            onClick={() => setHeaderMenuOpen((open) => !open)}
-          >⋮</button>
-          {headerMenuOpen && (
-            <div className="header-action-menu" role="menu" aria-label="Дополнительные действия">
-              <button role="menuitem" onClick={() => { setHeaderMenuOpen(false); void shareOpportunity({ title: "Дерзай" }); }}>
-                Поделиться
-              </button>
-              <button role="menuitem" onClick={() => { setHeaderMenuOpen(false); setView("profile"); }}>
-                Профиль
-              </button>
-            </div>
-          )}
-        </div>
+        <button className="header-control" aria-label="Обновить мини-приложение" title="Обновить" onClick={() => window.location.reload()}>⋮</button>
       </header>
       <div className="page">
         {storageWarning && (
@@ -377,7 +338,8 @@ export default function App() {
                     aria-expanded={quickFilter === "subject"}
                     onClick={() => setQuickFilter(quickFilter === "subject" ? null : "subject")}
                   >
-                    {subjectFilterCount ? `Предмет +${subjectFilterCount}` : "Предмет"}
+                    <span>{subjectFilterCount ? `Предмет +${subjectFilterCount}` : "Предмет"}</span>
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5" /></svg>
                   </button>
                   {subjectFilterCount > 0 && (
                     <button
@@ -394,7 +356,7 @@ export default function App() {
                   onClick={() => setQuickFilter(quickFilter === "organizer" ? null : "organizer")}
                 >
                   {organizerFilterCount ? `Организатор +${organizerFilterCount}` : "Тип организатора"}
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 10 5-5 5 5" /></svg>
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5" /></svg>
                 </button>
                 </div>
                 {quickFilter && (
@@ -461,7 +423,7 @@ export default function App() {
                 </div>
               ) : (
                 <div className="event-list">
-                  {visibleFound.map((e) => (
+                  {pageEvents.map((e) => (
                     <article className="event-item" key={e.id}>
                       <button
                         className={"event-card " + e.type}
@@ -498,6 +460,25 @@ export default function App() {
                     </article>
                   ))}
                 </div>
+              )}
+              {pageCount > 1 && (
+                <nav className="opportunity-pagination" aria-label="Страницы возможностей">
+                  {paginationItems(safePage, pageCount).map((item, index) =>
+                    typeof item === "number" ? (
+                      <button
+                        key={item}
+                        aria-current={safePage === item ? "page" : undefined}
+                        aria-label={`Страница ${item}`}
+                        onClick={() => {
+                          setCurrentPage(item);
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                      >{item}</button>
+                    ) : (
+                      <span className="pagination-ellipsis" key={item + index} aria-hidden="true">…</span>
+                    ),
+                  )}
+                </nav>
               )}
               {shareNotice && <p className="share-notice" role="status">{shareNotice}</p>}
             </section>
