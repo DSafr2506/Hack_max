@@ -74,9 +74,12 @@ export function Onboarding({
       )}
       <section className="onboard-body">
         {step === 0 && (
-          <div className="welcome-mark" aria-hidden="true">
-            ✦
-          </div>
+          <img
+            className="welcome-mark"
+            src="/assets/figma/onboarding-welcome.svg"
+            alt=""
+            aria-hidden="true"
+          />
         )}
         <h1>{titles[step]}</h1>
         {step === 0 ? (
