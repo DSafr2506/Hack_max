@@ -2635,8 +2635,18 @@ body {
   font-weight: 600;
 }
 .opportunity-pagination button[aria-current="page"] {
-  background: linear-gradient(#5249f4, #5249f4) center / 30px 30px no-repeat;
+  position: relative;
+  isolation: isolate;
   color: #fff;
+}
+.opportunity-pagination button[aria-current="page"]::before {
+  position: absolute;
+  z-index: -1;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: #5249f4;
+  content: "";
 }
 .pagination-ellipsis {
   min-width: 20px;
@@ -2648,7 +2658,7 @@ body {
 @media (max-width: 360px) {
   .opportunity-pagination { gap: 2px; }
   .opportunity-pagination button { width: 32px; height: 32px; min-height: 32px; }
-  .opportunity-pagination button[aria-current="page"] { background-size: 28px 28px; }
+  .opportunity-pagination button[aria-current="page"]::before { width: 28px; height: 28px; }
 }
 .event-item .card-bottom {
   margin-top: auto;
