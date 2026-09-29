@@ -96,9 +96,8 @@ export function filterEvents(
           day(e.deadline) - day(today) <= 7 * 86400000)) &&
       matches(e, f.values) &&
       rangesMatch(e, f.ranges) &&
-      (f.types.length !== 1 ||
-        (matches(e.special, f.special) &&
-          rangesMatch(e.special, f.specialRanges))),
+      matches(e.special, f.special) &&
+      rangesMatch(e.special, f.specialRanges),
   );
 }
 export const toggle = <T>(values: T[], v: T) =>

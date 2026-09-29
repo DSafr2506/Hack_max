@@ -1,23 +1,30 @@
+import { useState } from "react";
 import type { Opportunity } from "../types";
-import { SPECIAL, TYPES, valueLabel } from "../data/catalog";
+import { SPECIAL, valueLabel } from "../data/catalog";
 import { dateLabel } from "../components/ui";
 export function Details({
   event: e,
-  onBack,
+  isParticipating,
+  onGoToCalendar,
 }: {
   event: Opportunity;
-  onBack: () => void;
+  isParticipating: boolean;
+  onGoToCalendar: () => void;
 }) {
+  const [registrationNotice, setRegistrationNotice] = useState(false);
   const bool = (v: boolean | undefined) =>
     v === undefined ? "Не указано" : v ? "Да" : "Нет";
+  const registrationUrl = e.source && /^https:\/\//.test(e.source) ? e.source : null;
+  function continueToOpportunity() {
+    if (registrationUrl) window.open(registrationUrl, "_blank", "noopener,noreferrer");
+    else setRegistrationNotice(true);
+  }
   return (
-    <main className="page details">
-      <button onClick={onBack}>← К подборке</button>
-      <p className="eyebrow">{TYPES[e.type]} · Демо</p>
+    <main className="page event-details">
       <h1>{e.title}</h1>
-      <p>{e.organizer}</p>
-      <section className="glass">
-        <h2>О мероприятии</h2>
+      <p className="details-organizer">{e.organizer}</p>
+      <section className="glass details-card">
+        <h2>О ВОЗМОЖНОСТИ</h2>
         <p>{e.description}</p>
         <h3>Что даёт участие</h3>
         <ul>
@@ -31,17 +38,17 @@ export function Details({
         </p>
         <p>
           Регионы участников:{" "}
-          {e.eligibleRegions.includes("*")
+          <em>{e.eligibleRegions.includes("*")
             ? "Все регионы"
-            : e.eligibleRegions.join(", ")}
+            : e.eligibleRegions.join(", ")}</em>
         </p>
         <p>
-          Доступно для ОВЗ: {bool(e.accessible)}
+          Доступно для ОВЗ: <em>{bool(e.accessible)}</em>
           <br />
-          Согласие родителей: {bool(e.parentalConsent)}
+          Согласие родителей: <em>{bool(e.parentalConsent)}</em>
         </p>
       </section>
-      <section className="glass">
+      <section className="glass details-card">
         <h2>Когда и где</h2>
         <dl>
           <dt>Формат и место</dt>
@@ -56,17 +63,11 @@ export function Details({
           <dd>
             {dateLabel(e.start)} — {dateLabel(e.end)}
           </dd>
-          <dt>Длительность</dt>
-          <dd>{e.duration} дн.</dd>
           <dt>Стоимость</dt>
           <dd>
             {e.cost}
             {e.price > 0 ? ` · ${e.price.toLocaleString("ru")} ₽` : ""}
           </dd>
-          <dt>Проезд оплачивается</dt>
-          <dd>{bool(e.travel)}</dd>
-          <dt>Проживание оплачивается</dt>
-          <dd>{bool(e.accommodation)}</dd>
           <dt>Как попасть</dt>
           <dd>{e.admission}</dd>
           <dt>Уровень / организатор</dt>
@@ -75,11 +76,11 @@ export function Details({
           </dd>
           <dt>Направление</dt>
           <dd>{e.direction}</dd>
-          <dt>Проверено платформой (демо)</dt>
+          <dt>Проверено платформой</dt>
           <dd>{bool(e.verified)}</dd>
         </dl>
       </section>
-      <section className="glass">
+      <section className="glass details-card">
         <h2>Особенности программы</h2>
         <dl>
           {SPECIAL[e.type].map((f) => {
@@ -98,16 +99,22 @@ export function Details({
           })}
         </dl>
       </section>
-      {e.source && /^https:\/\//.test(e.source) ? (
-        <a className="primary" href={e.source} target="_blank" rel="noreferrer">
-          Официальный источник ↗
-        </a>
-      ) : (
-        <p className="notice">
-          Это вымышленное демонстрационное мероприятие. Настоящей ссылки и
-          приёма заявок нет.
-        </p>
-      )}
+      <section className="details-actions" aria-label="Действия с мероприятием">
+        <button
+          className={`primary${isParticipating ? " is-participating" : ""}`}
+          onClick={continueToOpportunity}
+        >
+          {isParticipating ? "Участвую" : "Перейти к регистрации"}
+        </button>
+        <button className="details-calendar-link" onClick={onGoToCalendar}>
+          Перейти в календарь <span aria-hidden="true">→</span>
+        </button>
+        {registrationNotice && !registrationUrl && (
+          <p className="details-notice" role="status">
+            Ссылка на страницу мероприятия ещё не указана.
+          </p>
+        )}
+      </section>
     </main>
   );
 }

@@ -42,6 +42,7 @@ export interface CommonEvent {
   direction: string;
   verified?: boolean;
   source?: string;
+  isParticipating?: boolean;
 }
 export interface OlympiadFields {
   status: string;

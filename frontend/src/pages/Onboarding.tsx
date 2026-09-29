@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { EventType, Grade, Profile } from "../types";
 import { CITIES, TYPES } from "../data/catalog";
-import { Choice, Primary } from "../components/ui";
+import { BackArrow, Choice, Primary } from "../components/ui";
 import { toggle } from "../state/filters";
 export function Onboarding({
   profile,
@@ -51,12 +51,12 @@ export function Onboarding({
             onClick={() => go(step - 1)}
             aria-label="Предыдущий шаг"
           >
-            ←
+            <BackArrow className="figma-back-arrow" />
           </button>
         ) : (
           <span />
         )}
-        <span>Агрегатор возможностей</span>
+        <span>Дерзай</span>
         {onCancel ? (
           <button onClick={onCancel} aria-label="Отменить редактирование">
             ✕
@@ -90,7 +90,7 @@ export function Onboarding({
               интересов и целей
             </p>
             <p>
-              <span>↗</span>Выбирайте свою цель и открывайте новые возможности
+              <span>↗</span>Следите за дедлайнами в календаре и получайте напоминания
             </p>
           </div>
         ) : step === 1 ? (
@@ -184,6 +184,7 @@ export function Onboarding({
       <footer className="onboard-footer">
         <Primary
           disabled={!valid}
+          ariaLabel={step === 4 && !editing ? "Открыть возможности" : undefined}
           onClick={() => (step === 4 ? onComplete() : go(step + 1))}
         >
           {step === 0
@@ -191,7 +192,7 @@ export function Onboarding({
             : step === 4
               ? editing
                 ? "Сохранить"
-                : "Открыть возможности"
+                : "Далее"
               : "Далее"}
         </Primary>
         <small>Демонстрационный режим · 8–11 классы</small>
