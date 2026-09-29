@@ -86,15 +86,15 @@ export function Onboarding({
           <div className="benefits">
             <p>
               <span aria-hidden="true"><img src="/assets/figma/onboarding-search.svg" alt="" /></span>
-              Находите олимпиады, хакатоны и другие возможности в одном месте
+              Находите олимпиады, хакатоны&nbsp;и&nbsp;другие возможности&nbsp;в&nbsp;одном месте
             </p>
             <p>
               <span aria-hidden="true"><img src="/assets/figma/onboarding-star.svg" alt="" /></span>
-              Получайте подборки с учётом вашего города, класса, интересов и целей
+              Получайте подборки с&nbsp;учётом вашего города, класса, интересов&nbsp;и&nbsp;целей
             </p>
             <p>
               <span aria-hidden="true"><img src="/assets/figma/onboarding-bell.svg" alt="" /></span>
-              Следите за дедлайнами в календаре и получайте напоминания
+              Следите за&nbsp;дедлайнами в&nbsp;календаре&nbsp;и&nbsp;получайте напоминания
             </p>
           </div>
         ) : step === 1 ? (

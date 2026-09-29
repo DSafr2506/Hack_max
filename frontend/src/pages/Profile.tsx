@@ -188,8 +188,8 @@ export function ProfilePage({
         <button className="profile-restart" onClick={onEdit}><span>Пройти онбординг заново</span></button>
       </section>
       <section className="profile-feature-list" aria-label="Разделы профиля">
-        <FeatureCard title="Избранное" description="Ваш личный список интересных возможностей и мероприятий" icon="heart" onClick={() => moveTo("favorites")} />
-        <FeatureCard title="Напоминания" description="Мероприятия, о старте регистрации которых мы напомним в чат-боте" icon="bell" onClick={() => moveTo("reminders")} />
+        <FeatureCard title="Избранное" description={"Ваш личный список интересных возможностей и мероприятий"} icon="heart" onClick={() => moveTo("favorites")} />
+        <FeatureCard title="Напоминания" description={"Мероприятия, о старте регистрации которых мы напомним в чат-боте"} icon="bell" onClick={() => moveTo("reminders")} />
         <FeatureCard title="Участия" description="Ваш трекер активности" icon="badge" onClick={() => moveTo("participation")} />
       </section>
     </main>
