@@ -848,6 +848,12 @@ legend {
 .benefits p > span {
   background: transparent;
 }
+.benefits p > span img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
 .onboard-footer {
   padding-bottom: 28px;
 }
